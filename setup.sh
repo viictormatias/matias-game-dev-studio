@@ -5,7 +5,7 @@ mode="${1:-check}"
 cd "$(dirname "$0")"
 [ -f workspace/workspace.json ] || { echo "Run setup.sh from the complete repository folder." >&2; exit 1; }
 has() { command -v "$1" >/dev/null 2>&1 && echo true || echo false; }
-echo "Mr. Mak Workspace setup"
+echo "Matias Game Dev Studio setup"
 echo "Node: $(has node) | npm: $(has npm) | Rust (desktop source build only): $(has cargo)"
 echo "Codex CLI: $(has codex) | Claude Code CLI: $(has claude) | OpenCode: $(has opencode)"
 # xcrun fails both without the Command Line Tools and with a stale developer path after a macOS upgrade.
@@ -40,12 +40,12 @@ if [ "$(uname)" = Darwin ]; then
   minimum="$(node desktop/prepare.mjs --macos-minimum)"
   if [ -n "$minimum" ]; then
     echo "The bundled Node $(node --version) requires macOS $minimum, so the app will declare macOS $minimum as its minimum (build with Node 22 for older Macs)."
-    MRMAK_MACOS_MINIMUM="$minimum" npm run desktop:build -- --bundles app dmg --config "{\"bundle\":{\"macOS\":{\"minimumSystemVersion\":\"$minimum\"}}}"
+    MATIAS_MACOS_MINIMUM="$minimum" npm run desktop:build -- --bundles app dmg --config "{\"bundle\":{\"macOS\":{\"minimumSystemVersion\":\"$minimum\"}}}"
   else
     npm run desktop:build -- --bundles app dmg
   fi
   echo "App ready in src-tauri/target/release/bundle/macos (disk image in bundle/dmg)."
-  echo "Drag Mr. Mak Workspace.app to Applications, then double-click 'Start Mr. Mak.command'."
+  echo "Drag Matias Game Dev Studio.app to Applications, then double-click 'Start Matias.command'."
 else
   npm run desktop:build:appimage
   echo "AppImage ready in src-tauri/target/release/bundle/appimage."

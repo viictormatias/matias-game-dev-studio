@@ -7,7 +7,7 @@ import { createService } from '../server.mjs';
 
 test('script-capable documents get an opaque origin and an expiring grant for their own folder', async () => {
   // macOS /var and Windows runner short paths can alias the canonical temp folder.
-  const base = await realpath(await mkdtemp(path.join(os.tmpdir(), 'mrmak-report-isolation-')));
+  const base = await realpath(await mkdtemp(path.join(os.tmpdir(), 'matias-report-isolation-')));
   const repo = path.join(base, 'repo'), outside = path.join(base, 'downloads');
   for (const folder of ['workspace/card/assets', 'workspace/other', 'workspace/_shared', 'context', 'ui']) await mkdir(path.join(repo, folder), { recursive: true });
   await mkdir(outside);
@@ -30,7 +30,7 @@ test('script-capable documents get an opaque origin and an expiring grant for th
   try {
     const { files } = service, repoToken = files.repoGrant;
     const open = async file => {
-      const first = await fetch(files.url(file) + '?mrmak-theme=light', { redirect: 'manual' });
+      const first = await fetch(files.url(file) + '?matias-theme=light', { redirect: 'manual' });
       assert.equal(first.status, 302);
       const location = new URL(first.headers.get('location'), files.origin);
       return { location, token: location.pathname.split('/')[2], response: await fetch(location) };
@@ -40,8 +40,8 @@ test('script-capable documents get an opaque origin and an expiring grant for th
     // The document's own address never carries the repository-wide token.
     const report = await open(path.join(repo, 'workspace/card/report.html'));
     assert.notEqual(report.token, repoToken); assert.equal(report.location.pathname.endsWith('/workspace/card/report.html'), true);
-    assert.equal(report.location.searchParams.get('mrmak-theme'), 'light');
-    assert.equal(report.response.status, 200); assert.match(await report.response.text(), /data-mrmak-links/);
+    assert.equal(report.location.searchParams.get('matias-theme'), 'light');
+    assert.equal(report.response.status, 200); assert.match(await report.response.text(), /data-matias-links/);
     const policy = report.response.headers.get('content-security-policy'), own = `${files.origin}/view/${report.token}/workspace/card/`;
     assert.match(policy, /^sandbox allow-scripts allow-forms allow-popups allow-downloads;/);
     assert.ok(!policy.includes('allow-same-origin')); assert.ok(!policy.includes('allow-popups-to-escape-sandbox'));

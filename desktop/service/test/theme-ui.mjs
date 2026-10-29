@@ -30,8 +30,8 @@ await mkdir(path.join(repo, 'workspace/test'), { recursive: true });
 await mkdir(path.join(repo, 'knowledge'), { recursive: true });
 await cp(path.join(root, 'public/assets'), path.join(root, 'dist/assets'), { recursive: true });
 await writeFile(path.join(repo, 'knowledge/notes.md'), '# Theme notes\n\nReadable **Markdown**.\n');
-await writeFile(path.join(repo, 'workspace/test/report.html'), `<!doctype html><html data-mak-report="document"><head><style>body{background:#101115;color:#d3d0d9;min-height:2200px}h1{color:#fff}img{width:60px}</style></head><body><h1>Reading report</h1><p>Dark text on a light background.</p><input aria-label="Keep my draft" value="Original"><img alt="Artwork" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='40' height='40'%3E%3Crect width='40' height='40' fill='%23ee3377'/%3E%3C/svg%3E"><script>window.mountId=crypto.randomUUID()</script></body></html>`);
-await writeFile(path.join(repo, 'workspace/test/custom.html'), '<!doctype html><html data-mak-report="document" data-mak-theme="custom"><head><style>body{background:rgb(20,30,40);color:white}</style></head><body><h1>Custom game</h1><canvas style="background:rgb(30,80,40)"></canvas></body></html>');
+await writeFile(path.join(repo, 'workspace/test/report.html'), `<!doctype html><html data-matias-report="document"><head><style>body{background:#101115;color:#d3d0d9;min-height:2200px}h1{color:#fff}img{width:60px}</style></head><body><h1>Reading report</h1><p>Dark text on a light background.</p><input aria-label="Keep my draft" value="Original"><img alt="Artwork" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='40' height='40'%3E%3Crect width='40' height='40' fill='%23ee3377'/%3E%3C/svg%3E"><script>window.mountId=crypto.randomUUID()</script></body></html>`);
+await writeFile(path.join(repo, 'workspace/test/custom.html'), '<!doctype html><html data-matias-report="document" data-matias-theme="custom"><head><style>body{background:rgb(20,30,40);color:white}</style></head><body><h1>Custom game</h1><canvas style="background:rgb(30,80,40)"></canvas></body></html>');
 await writeFile(path.join(repo, 'workspace/test/notes.md'), '# Readable notes\n\nA **strong** paragraph and [a link](https://example.com/).\n\n| Name | State |\n| --- | --- |\n| Theme | Ready |\n');
 await writeFile(path.join(repo, 'workspace/workspace.json'), JSON.stringify({ entities: [{ id: 'test', folder: 'test', title: 'Theme check', sample: true, category: 'dev', created: '2026-10-02', status: 'active', defaultStep: 0, steps: [{ name: 'Report', path: 'report.html' }, { name: 'Notes', path: 'notes.md' }, { name: 'Custom game', path: 'custom.html' }] }] }));
 let service, browser;
@@ -68,7 +68,7 @@ try {
   await expect(second.locator('.content')).toHaveCSS('background-color', 'rgb(247, 248, 250)');
   await expect(second.locator('.entity-card')).toHaveCSS('background-color', 'rgb(255, 255, 255)');
   await expect(chats.locator('html')).toHaveAttribute('data-workspace-theme', 'dark');
-  await expect(report().locator('html')).toHaveAttribute('data-mrmak-theme', 'light');
+  await expect(report().locator('html')).toHaveAttribute('data-matias-theme', 'light');
   assert.equal(await report().locator('body').evaluate(node => getComputedStyle(node).backgroundColor), 'rgb(255, 255, 255)');
   assert.equal(await report().locator('h1').evaluate(node => getComputedStyle(node).color), 'rgb(17, 21, 33)');
   assert.equal(await report().locator('html').evaluate(() => window.mountId), mountId);
@@ -76,8 +76,8 @@ try {
   assert.equal(await report().getByRole('textbox', { name: 'Keep my draft' }).inputValue(), 'Keep this edit');
   assert.equal(await report().getByRole('img', { name: 'Artwork' }).evaluate(node => getComputedStyle(node).filter), 'none');
   // Untrusted siblings and invalid values cannot change the report's theme.
-  await report().locator('html').evaluate(() => window.dispatchEvent(new MessageEvent('message', { source: window, origin: location.origin, data: { type: 'mrmak:theme', theme: 'dark' } })));
-  await expect(report().locator('html')).toHaveAttribute('data-mrmak-theme', 'light');
+  await report().locator('html').evaluate(() => window.dispatchEvent(new MessageEvent('message', { source: window, origin: location.origin, data: { type: 'matias:theme', theme: 'dark' } })));
+  await expect(report().locator('html')).toHaveAttribute('data-matias-theme', 'light');
   const saved = await (await fetch(service.origin + '/api/settings', { method: 'POST', headers: { Authorization: `Bearer ${service.token}`, 'Content-Type': 'application/json' }, body: JSON.stringify({ workspaceTheme: 'invalid' }) })).json();
   assert.equal(saved.workspaceTheme, 'light');
   // Named palettes apply independently, synchronise with other windows and
@@ -91,7 +91,7 @@ try {
     await page.getByLabel('Workspace theme', { exact: true }).selectOption(theme.id);
     await expect(page.locator('html')).toHaveAttribute('data-workspace-theme', theme.id);
     await expect(second.locator('html')).toHaveAttribute('data-workspace-theme', theme.id);
-    await expect(report().locator('html')).toHaveAttribute('data-mrmak-theme', theme.id);
+    await expect(report().locator('html')).toHaveAttribute('data-matias-theme', theme.id);
     assert.equal(await report().locator('html').evaluate(() => window.mountId), mountId);
     assert.equal(await report().getByRole('textbox', { name: 'Keep my draft' }).inputValue(), 'Keep this edit');
     await chats.getByLabel('Chat theme', { exact: true }).selectOption(theme.id);
@@ -135,8 +135,8 @@ try {
   await expect(chats.locator('html')).toHaveAttribute('data-workspace-theme', 'nordic-polar-night');
   await page.getByRole('button', { name: 'Close settings', exact: true }).click();
   await page.getByRole('tab', { name: 'Notes', exact: true }).click();
-  await page.locator('.mak-markdown h1').waitFor();
-  assert.equal(await page.locator('.mak-markdown h1').evaluate(node => getComputedStyle(node).color), 'rgb(17, 21, 33)');
+  await page.locator('.matias-markdown h1').waitFor();
+  assert.equal(await page.locator('.matias-markdown h1').evaluate(node => getComputedStyle(node).color), 'rgb(17, 21, 33)');
   await page.getByRole('button', { name: 'Toggle files', exact: true }).click();
   await page.getByRole('treeitem', { name: /^knowledge$/ }).click();
   await page.getByRole('treeitem', { name: /^notes.md/ }).click();

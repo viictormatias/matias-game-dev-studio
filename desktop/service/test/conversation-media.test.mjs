@@ -18,7 +18,7 @@ test('Claude and Codex retain image-only records while hiding tool text and reas
 });
 
 test('exact image grants isolate devices/sessions, expire, validate bytes and reject network paths', async () => {
-  const folder = await mkdtemp(path.join(os.tmpdir(), 'mak-media-'));
+  const folder = await mkdtemp(path.join(os.tmpdir(), 'matias-media-'));
   try {
     const file = path.join(folder, 'picture.png'); await writeFile(file, png);
     await writeFile(path.join(folder, 'fake.png'), '<html>not an image</html>');
@@ -54,7 +54,7 @@ test('video links and structured records retain video-only replies', () => {
 
 test('recorded video streams ranges, validates files and isolates grants', async t => {
   const { createServer } = await import('node:http');
-  const folder = await mkdtemp(path.join(os.tmpdir(), 'mak-video-'));
+  const folder = await mkdtemp(path.join(os.tmpdir(), 'matias-video-'));
   t.after(() => rm(folder, { recursive: true, force: true }));
   const video = Buffer.concat([Buffer.from([0,0,0,24]), Buffer.from('ftypisom'), Buffer.alloc(8192, 42)]);
   const file = path.join(folder, 'recording.mp4'); await writeFile(file, video);

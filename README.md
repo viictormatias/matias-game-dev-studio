@@ -1,12 +1,12 @@
-# Mr. Mak Workspace
+# Matias Game Dev Studio
 
 > **Instalação rápida (Windows, interface em português)**
 >
-> 1. Clone este repositório: `git clone https://github.com/MateusDevZip/mr-mak-workspace.git`
+> 1. Clone este repositório: `git clone https://github.com/viictormatias/matias-game-dev-studio.git`
 > 2. Baixe o instalador `...-windows-x64-setup.exe` em
->    [Releases](https://github.com/MateusDevZip/mr-mak-workspace/releases/latest) e instale.
+>    [Releases](https://github.com/viictormatias/matias-game-dev-studio/releases/latest) e instale.
 >    Não precisa de Rust nem de build.
-> 3. Abra o **Mr. Mak Workspace** e escolha a pasta clonada como repositório.
+> 3. Abra o **Matias Game Dev Studio** e escolha a pasta clonada como repositório.
 > 4. Conecte um agente (Claude Code, Codex ou OpenCode) já logado no seu PC. Veja
 >    [Getting started](docs/getting-started.md#connect-one-agent).
 > 5. Preencha `context/identity.md`, `context/goals.md` e `context/preferences.md` com os seus dados.
@@ -14,7 +14,7 @@
 
 Your CLI agents, a visual Workspace, and access from your phone.
 
-Mr. Mak has **two connected desktop windows**:
+Matias has **two connected desktop windows**:
 
 - **Chats** is where you give tasks to Codex, Claude Code, Antigravity, OpenCode or Kimi. Each
   conversation runs in a real CLI terminal, with its own tab and saved history.
@@ -30,7 +30,7 @@ images, notes and prompts in Gallery or Research views. Agents use the same
 content files. You can also [connect your phone](#on-your-phone) to follow chats,
 send ideas and dictate messages while the agents keep working on your computer.
 
-![The two Mr. Mak windows side by side: CLI chats on the left and the My Dream Game project in Workspace on the right](docs/assets/desktop-chats-workspace.png)
+![The two Matias windows side by side: CLI chats on the left and the My Dream Game project in Workspace on the right](docs/assets/desktop-chats-workspace.png)
 
 *Chats on the left, Workspace on the right. App views arranged side by side
 with sample conversations and the included My Dream Game project.*
@@ -50,7 +50,7 @@ Workspace preview, resolved against the chat's folder.
 
 - **Answer permission menus with a click.** When the CLI asks for permission,
   the numbered menu at the bottom of the terminal appears as buttons. Before
-  sending any key, Mr. Mak reads the screen again and checks that it is still the
+  sending any key, Matias reads the screen again and checks that it is still the
   same prompt, so a late click cannot answer a newer question.
 - **Autocomplete commands.** Type `/` at the start of a message, or `$` before a
   word in a Codex chat, to list that CLI's built-in commands plus project, user
@@ -75,7 +75,7 @@ Workspace preview, resolved against the chat's folder.
 
 ![Claude Code asking to edit combat.ts, shown in the Conversation view with the diff and three answer buttons](docs/assets/conversation-permission.png)
 
-Codex 0.163 chats are supported: Mr. Mak starts Codex with `--no-daemon` when
+Codex 0.163 chats are supported: Matias starts Codex with `--no-daemon` when
 the installed version offers it, so every chat stays linked to its conversation,
 and a chat follows a rewind or a `/new` made in its terminal.
 
@@ -94,7 +94,7 @@ sync across open windows. See the [palette list](desktop/README.md#workspace-and
 ## Projects and long chats
 
 **New chat** lists the folders you have worked in: the Workspace, projects
-opened in Claude Code, folders where Codex ran and folders of earlier Mr. Mak
+opened in Claude Code, folders where Codex ran and folders of earlier Matias
 chats. Pin favorites to keep them at the top. History can filter by project, and
 the voice coordinator can open a chat in a project you name. A paired phone may
 only start a chat in a listed folder, never in an arbitrary path.
@@ -102,7 +102,7 @@ only start a chat in a listed folder, never in an arbitrary path.
 <img src="docs/assets/new-chat-projects.png" alt="The New chat dialog with Claude Code selected and a project list: the Workspace, a pinned arachne-lab, the selected dream-game and other recent folders" width="420">
 
 After a set number of your messages (40 by default; chat options **⋯**), a chat
-offers **Summarize and continue**. Mr. Mak asks the agent for a handoff, saves it
+offers **Summarize and continue**. Matias asks the agent for a handoff, saves it
 in `inbox/handoffs`, and opens "*name* · continued" in the same folder with the
 same agent and settings. The new chat starts by reading that handoff. Choose
 **Later** or **Not for this chat** to dismiss it.
@@ -117,11 +117,11 @@ tabs. Double-click a tab, or press F2, to rename its chat.
 ## On your phone
 
 Read replies, send follow-ups or images, and open Workspace reports from a mobile
-web app you can add to your Home Screen. The phone connects to Mr. Mak on your
+web app you can add to your Home Screen. The phone connects to Matias on your
 computer through **Tailscale**. Your agents keep running on the computer with
 their existing CLI accounts.
 
-<a href="docs/assets/mobile-overview.png"><img src="docs/assets/mobile-overview.png" alt="Mr. Mak on a phone: chat list, conversation and voice input side by side" width="720"></a>
+<a href="docs/assets/mobile-overview.png"><img src="docs/assets/mobile-overview.png" alt="Matias on a phone: chat list, conversation and voice input side by side" width="720"></a>
 
 *Your chats, a conversation, and voice input in one overview. Tap the image
 to see it at full size. Sample conversations shown.*
@@ -143,7 +143,7 @@ to see it at full size. Sample conversations shown.*
 
 <img src="docs/assets/mobile-terminal-wrap.png" alt="The phone Terminal view in Wrap mode, with CLI output wrapped to the screen width" width="320">
 
-Keep the computer awake with Mr. Mak running, and Tailscale connected on both
+Keep the computer awake with Matias running, and Tailscale connected on both
 devices. Dictation can run locally with Whisper after the optional Python setup,
 or use separately billed OpenRouter/OpenAI API credit. Updates keep your current
 provider. Local dictation and Read aloud require no transcription API key;
@@ -153,7 +153,7 @@ the optional Live voice coordinator still uses OpenAI API billing.
 
 ## Everyday tools
 
-![An editable Gallery card with Mr. Mak character and location references, saved prompts, entry statuses and Preview/Edit controls](docs/assets/editable-cards-gallery.png)
+![An editable Gallery card with Matias character and location references, saved prompts, entry statuses and Preview/Edit controls](docs/assets/editable-cards-gallery.png)
 
 - **Cards you can edit yourself.** Choose **+ New card** for a Gallery or Research
   page. Add images, notes, source links and prompts; drag entries into order or
@@ -187,8 +187,8 @@ the optional Live voice coordinator still uses OpenAI API billing.
 ## Before you start
 
 **Prerequisite: install and configure Codex CLI, Claude Code CLI, Antigravity, OpenCode or Kimi
-before setting up Mr. Mak.** You need at least one. They can run side by side
-and are separate installations, not bundled with Mr. Mak.
+before setting up Matias.** You need at least one. They can run side by side
+and are separate installations, not bundled with Matias.
 
 - [Install Codex CLI](https://developers.openai.com/codex/cli)
 - [Install Claude Code CLI](https://code.claude.com/docs/en/setup)
@@ -197,7 +197,7 @@ and are separate installations, not bundled with Mr. Mak.
 - [Install Kimi Code CLI](https://moonshotai.github.io/kimi-cli/)
 
 **Do I need an API key?** No, not for Claude Code or Codex chats when you sign
-in with an eligible subscription. Mr. Mak runs the real CLI with its existing
+in with an eligible subscription. Matias runs the real CLI with its existing
 login: Claude Pro/Max can use Claude Code, and Codex can use ChatGPT subscription
 access. Normal plan limits still apply. API billing is an alternative, not a
 requirement. See [Claude authentication](https://code.claude.com/docs/en/authentication)
@@ -224,7 +224,7 @@ Use **Use this template** on GitHub to create your own repository, then clone it
 into a folder you control. Open that folder in your installed Codex CLI,
 Claude Code CLI or OpenCode and paste:
 
-> Set up this Mr. Mak Workspace repository on my computer. Read AGENTS.md and
+> Set up this Matias Game Dev Studio repository on my computer. Read AGENTS.md and
 > docs/getting-started.md, check the prerequisites, and help me run the desktop
 > app for my operating system. Use my own CLI accounts. Leave optional voice,
 > paid providers, MCP connections and the window-recall shortcut (Win key on
@@ -237,20 +237,20 @@ your own agent accounts and any services you want to use.
 
 ## Run the desktop app
 
-On Windows, download the installer from [Releases](https://github.com/witnesstodark/mr-mak-workspace/releases/latest),
-install **Mr. Mak Workspace**, then open **Start Mr. Mak.cmd** in your cloned
+On Windows, download the installer from [Releases](https://github.com/viictormatias/matias-game-dev-studio/releases/latest),
+install **Matias Game Dev Studio**, then open **Start Matias.cmd** in your cloned
 repository. On Linux, build the Tauri desktop target after installing the Node,
 Rust and WebKitGTK prerequisites, then launch the resulting AppImage/deb install
 with `--repo /path/to/your/workspace`. On macOS (Apple Silicon), download the
 `.dmg` from the same Releases page or run `./setup.sh desktop` to build
-`Mr. Mak Workspace.app`, then open **Start Mr. Mak.command**
+`Matias Game Dev Studio.app`, then open **Start Matias.command**
 ([macOS notes](docs/getting-started.md#macos)). On every system, use **+** in
 Chats to open an installed CLI and sign in with your own account.
 
 The installer includes the local Node service. It does not include Codex,
 Claude Code, Antigravity, OpenCode, Kimi, Blender, Python or provider accounts.
 
-**Already using Mr. Mak?** Read the [update notes](CHANGELOG.md) for the
+**Already using Matias?** Read the [update notes](CHANGELOG.md) for the
 Conversation view, recent projects and fresh-chat handoff, and for 0.5.1's
 Antigravity, macOS improvements, mobile navigation, local voice options and
 release security changes.
@@ -284,7 +284,7 @@ See [getting started](docs/getting-started.md) for the complete setup and
 
 | Example | What it demonstrates |
 | --- | --- |
-| **My Dream Game** | Mr. Mak 64: an illustrated game hub with an intro screen, character studies, locations and a development board. |
+| **My Dream Game** | Matias 64: an illustrated game hub with an intro screen, character studies, locations and a development board. |
 | **Creative MCP Connections** | A researched connection shortlist, source links and a practical setup checklist. |
 | **Make Workspace Yours** | Getting started, everyday use and changes you can ask an agent to make. |
 | **Arachne Character Lab** | Versions 1 through 9, expandable saved prompts, 158 images and eight motion studies. |
@@ -292,7 +292,7 @@ See [getting started](docs/getting-started.md) for the complete setup and
 The examples stay visible until you archive them. Create your own cards next to
 them, or archive all four when you are ready.
 
-![Inside My Dream Game: the included Mr. Mak 64 project](docs/assets/workspace.png)
+![Inside My Dream Game: the included Matias 64 project](docs/assets/workspace.png)
 
 Terminal text settings let you adjust readability. In agent chats, Ctrl+C copies
 selected text; PowerShell keeps normal shell behavior. On macOS, ⌘C and ⌘V copy
@@ -330,7 +330,7 @@ You can work entirely through the CLI chats. The floating nose adds an optional
 voice assistant: OpenAI Live supplies the voice connection over API, and the
 coordinator uses your signed-in Codex CLI. Voice API usage is billed separately
 from a CLI subscription. The coordinator uses your Codex model configuration
-unless you set `MRMAK_COORDINATOR_MODEL` in `.env`.
+unless you set `MATIAS_COORDINATOR_MODEL` in `.env`.
 
 fal.ai, Higgsfield and other providers are optional and use your own accounts.
 MCP configuration starts empty. The MCP panel explains where connections are
@@ -355,6 +355,6 @@ is supplied for learning and remixing; see [third-party notices](THIRD_PARTY_NOT
 
 ---
 
-Mr. Mak is small.
+Matias is small.
 
-<img src="docs/assets/mr-mak.png" alt="Mr. Mak, a small plush pig wearing a black hat" width="420">
+<img src="docs/assets/matias.png" alt="Matias, a small plush pig wearing a black hat" width="420">

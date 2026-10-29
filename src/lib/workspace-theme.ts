@@ -5,10 +5,10 @@ import { isThemePreference, resolveTheme, type ThemePreference, type PaletteId }
 export type WorkspaceTheme = ThemePreference
 export type ResolvedTheme = PaletteId
 export type ThemeTarget = 'workspace' | 'chat'
-const changed = 'mrmak-workspace-theme'
+const changed = 'matias-game-dev-studio-theme'
 const system = window.matchMedia('(prefers-color-scheme: dark)')
 const valid = (value: unknown): WorkspaceTheme => isThemePreference(value) ? value : 'dark'
-const readPreference = (target: ThemeTarget) => { try { return valid(localStorage.getItem(`mrmak.${target}Theme`)) } catch { return 'dark' as const } }
+const readPreference = (target: ThemeTarget) => { try { return valid(localStorage.getItem(`matias.${target}Theme`)) } catch { return 'dark' as const } }
 const subscribe = (listener: () => void) => {
   window.addEventListener('storage', listener)
   window.addEventListener(changed, listener)
@@ -32,7 +32,7 @@ export function useWorkspaceTheme(target: ThemeTarget = 'workspace') {
 export async function setWorkspaceTheme(preference: WorkspaceTheme, target: ThemeTarget = 'workspace') {
   if (isDesktop) await api('/settings', { [`${target}Theme`]: preference })
   else {
-    localStorage.setItem(`mrmak.${target}Theme`, preference)
+    localStorage.setItem(`matias.${target}Theme`, preference)
     window.dispatchEvent(new Event(changed))
   }
 }

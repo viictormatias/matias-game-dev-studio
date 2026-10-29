@@ -1,7 +1,7 @@
 import type { WorkspaceEntity } from '../types'
 import { categoryIcon, categoryLabel } from '../lib/categories'
-import MakCard from './MakCard'
-import MakLogo from './MakLogo'
+import MatiasCard from './MatiasCard'
+import MatiasLogo from './MatiasLogo'
 
 interface HomeGridProps {
   entities: WorkspaceEntity[]
@@ -35,7 +35,7 @@ export default function HomeGrid({
   return (
     <div className="home">
       <header className="home-hero">
-        <MakLogo size={84} />
+        <MatiasLogo size={84} />
         <div>
           <h1 className="home-title">{greeting()}</h1>
           <p className="home-sub">
@@ -61,7 +61,7 @@ export default function HomeGrid({
           </div>
           <div className="card-grid">
             {pinned.map(e => (
-              <MakCard key={e.id} entity={e} />
+              <MatiasCard key={e.id} entity={e} />
             ))}
           </div>
         </section>
@@ -77,7 +77,7 @@ export default function HomeGrid({
           </div>
           <div className="card-grid">
             {list.map(e => (
-              <MakCard key={e.id} entity={e} />
+              <MatiasCard key={e.id} entity={e} />
             ))}
           </div>
         </section>

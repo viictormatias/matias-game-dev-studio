@@ -1,16 +1,16 @@
 {
-  "format": "mrmak-card",
+  "format": "matias-card",
   "version": 1,
   "template": "gallery",
   "title": "A small game, three directions",
-  "summary": "An editable reference board for **Mr. Mak 64**. Compare the character and locations, keep notes, and save the next idea beside its image. The prompts below are suggested next iterations.",
+  "summary": "An editable reference board for **Matias 64**. Compare the character and locations, keep notes, and save the next idea beside its image. The prompts below are suggested next iterations.",
   "items": [
     {
       "id": "gentleman",
       "title": "The gentleman",
       "body": "Keep the character small and the hat easy to recognise. Review the silhouette at gameplay size before adding more detail.",
       "image": "assets/c1_gentleman_gpt.webp",
-      "alt": "Mr. Mak character concept wearing a top hat",
+      "alt": "Matias character concept wearing a top hat",
       "prompt": "Next iteration: keep the small proportions and top hat. Simplify details that disappear at gameplay size.",
       "status": "review"
     },

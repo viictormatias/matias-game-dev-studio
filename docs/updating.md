@@ -7,42 +7,42 @@ conversations.
 
 ## Application
 
-1. Finish active agent tasks, then choose Quit from Mr. Mak's tray menu.
-2. Download the latest **Mr. Mak Workspace** Windows x64 installer from
-   [Releases](https://github.com/witnesstodark/mr-mak-workspace/releases/latest)
+1. Finish active agent tasks, then choose Quit from Matias's tray menu.
+2. Download the latest **Matias Game Dev Studio** Windows x64 installer from
+   [Releases](https://github.com/viictormatias/matias-game-dev-studio/releases/latest)
    and run it.
 3. Open the same repository you were using before. Your cards, settings and
    History remain in that folder.
 
 For a desktop build from source, run `Setup.ps1 -Mode Update` in an external
-Windows PowerShell window opened from Start, outside Mr. Mak. It replaces these steps:
-it builds the current source, waits for you to quit Mr. Mak, installs the build
-silently and starts Mr. Mak again. See [getting started](getting-started.md).
+Windows PowerShell window opened from Start, outside Matias. It replaces these steps:
+it builds the current source, waits for you to quit Matias, installs the build
+silently and starts Matias again. See [getting started](getting-started.md).
 Update mode is Windows-only.
 
 ### macOS (source build)
 
 macOS has no installer or Update mode. Run these steps in Terminal, outside
-Mr. Mak, from your repository folder:
+Matias, from your repository folder:
 
 1. Merge the source changes, for example with `git pull`.
-2. Run `./setup.sh desktop`. Mr. Mak can stay open while it builds.
-3. Finish active agent tasks, then choose **Quit Mr. Mak and stop terminals**
+2. Run `./setup.sh desktop`. Matias can stay open while it builds.
+3. Finish active agent tasks, then choose **Quit Matias and stop terminals**
    from the menu-bar icon.
 4. Replace the installed app with the new build:
 
    ```bash
-   rm -rf "/Applications/Mr. Mak Workspace.app"
-   ditto "src-tauri/target/release/bundle/macos/Mr. Mak Workspace.app" "/Applications/Mr. Mak Workspace.app"
+   rm -rf "/Applications/Matias Game Dev Studio.app"
+   ditto "src-tauri/target/release/bundle/macos/Matias Game Dev Studio.app" "/Applications/Matias Game Dev Studio.app"
    ```
 
    The build is already signed ad hoc. Only if macOS still will not open the
-   copy, sign it again: `codesign --force --deep --sign - "/Applications/Mr. Mak Workspace.app"`.
-5. Double-click **Start Mr. Mak.command**. It prefers the copy in Applications,
+   copy, sign it again: `codesign --force --deep --sign - "/Applications/Matias Game Dev Studio.app"`.
+5. Double-click **Start Matias.command**. It prefers the copy in Applications,
    so skipping step 4 starts the old version; it warns when the build folder
    holds a newer app and prints the replace command from step 4.
 
-With a downloaded `.dmg` instead, quit Mr. Mak the same way, drag the new app
+With a downloaded `.dmg` instead, quit Matias the same way, drag the new app
 from the disk image over the one in Applications and choose Replace.
 
 macOS asks again for permissions such as microphone access after each rebuild,
@@ -69,7 +69,7 @@ your existing CLI account. Long links and paths stay within mobile chat cards.
 The Linux AppImage also includes a launcher permission fix.
 
 The History fix can reconnect a Codex conversation whose original native record
-still exists but whose ID was not saved by Mr. Mak. If that native history was
+still exists but whose ID was not saved by Matias. If that native history was
 deleted or belongs to another account, the update cannot recreate it. Use
 New chat > Resume with a known native ID when importing an existing CLI chat.
 Saved terminal screens are retained when automatic recovery is not possible.
@@ -81,11 +81,11 @@ No external integration is connected automatically.
 Version 0.4.17 added **Settings > Appearance > Workspace theme**. Choose Light
 for dark text on white, or System to follow your device. Dark remains the default.
 Standard HTML reports follow this preference. For a report with an independent
-visual design, merge its updated source or add `data-mak-theme="custom"` to the
+visual design, merge its updated source or add `data-matias-theme="custom"` to the
 root element to preserve its palette. See [customization](customization.md).
 
 Version 0.4.16 added **OpenCode** to New chat, History and the default-agent
-setting. Install and configure OpenCode separately, then reopen Mr. Mak if the
+setting. Install and configure OpenCode separately, then reopen Matias if the
 command was just added to PATH. Existing Codex and Claude chats keep their login
 and settings. No API key is needed for their subscription-backed CLI chats;
 voice remains optional and uses a separately billed OpenAI API connection.
@@ -110,7 +110,7 @@ preserve your own `workspace/workspace.json`, cards, context and connections.
 Do not reset a customized repository to the template to obtain an update.
 
 For a template-derived repository with unrelated history, use the separate
-**Mr-Mak-Skills-0.4.14.zip** for the workflows. Extract it outside your project,
+**Matias-Skills-0.4.14.zip** for the workflows. Extract it outside your project,
 read `SKILLS-README.md`, then merge the desired folders. No personal projects,
 keys, CLI logins or MCP definitions are included. The pack does not replace your
 `AGENTS.md` or `CLAUDE.md`.

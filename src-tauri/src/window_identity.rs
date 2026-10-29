@@ -31,7 +31,7 @@ fn icon_path(app: &tauri::AppHandle, label: &str) -> Result<PathBuf, Box<dyn std
     let mut hash = std::collections::hash_map::DefaultHasher::new(); bytes.hash(&mut hash);
     let folder = app.path().app_cache_dir()?.join("icons");
     fs::create_dir_all(&folder)?;
-    let path = folder.join(format!("mak-{label}-{:016x}.ico", hash.finish()));
+    let path = folder.join(format!("matias-{label}-{:016x}.ico", hash.finish()));
     if fs::read(&path).ok().as_deref() != Some(bytes) { fs::write(&path, bytes)?; }
     Ok(path)
 }
@@ -43,7 +43,7 @@ pub fn set_window(window: &tauri::WebviewWindow) -> Result<(), Box<dyn std::erro
     window.set_icon(tauri::image::Image::from_bytes(png)?)?;
     let icon = icon_path(app, label)?;
     let command = format!("\"{}\" --show {label}", std::env::current_exe()?.display());
-    let title = if label == "chats" { "Mr. Mak Chats" } else { "Mr. Mak Workspace" };
+    let title = if label == "chats" { "Matias Chats" } else { "Matias Game Dev Studio" };
     unsafe {
         let hwnd = window.hwnd()?.0;
         let dpi = GetDpiForWindow(hwnd);
@@ -64,10 +64,10 @@ pub fn set_window(window: &tauri::WebviewWindow) -> Result<(), Box<dyn std::erro
 
 pub fn refresh_shortcuts(app: &tauri::AppHandle) {
     let mut shortcuts = Vec::new();
-    if let Ok(desktop) = app.path().desktop_dir() { shortcuts.push(desktop.join("Mr. Mak Workspace.lnk")); }
+    if let Ok(desktop) = app.path().desktop_dir() { shortcuts.push(desktop.join("Matias Game Dev Studio.lnk")); }
     if let Some(roaming) = std::env::var_os("APPDATA") {
         let root = PathBuf::from(roaming);
-        shortcuts.push(root.join("Microsoft/Windows/Start Menu/Programs/Mr. Mak Workspace.lnk"));
+        shortcuts.push(root.join("Microsoft/Windows/Start Menu/Programs/Matias Game Dev Studio.lnk"));
         let pinned = root.join("Microsoft/Internet Explorer/Quick Launch/User Pinned/TaskBar");
         if let Ok(entries) = fs::read_dir(pinned) {
             shortcuts.extend(entries.flatten().map(|entry| entry.path()).filter(|path| path.extension().and_then(|ext| ext.to_str()).is_some_and(|ext| ext.eq_ignore_ascii_case("lnk"))));

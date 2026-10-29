@@ -1,4 +1,4 @@
-/* Luminous Mak — global styles. All values come from tokens.css. */
+/* Luminous Matias — global styles. All values come from tokens.css. */
 
 * { margin: 0; padding: 0; box-sizing: border-box; }
 
@@ -117,7 +117,7 @@ button:focus-visible {
   border-color: rgba(240, 160, 176, 0.45);
 }
 
-/* the floating Mr. Mak nose that brings the menu back — only when collapsed */
+/* the floating Matias nose that brings the menu back — only when collapsed */
 .sidebar-reopen {
   position: absolute;
   top: 8px;
@@ -589,8 +589,8 @@ button:focus-visible {
   font-size: 0.85rem;
 }
 
-/* ─── MakCard — the design-system card ─── */
-.mak-card {
+/* ─── MatiasCard — the design-system card ─── */
+.matias-card {
   position: relative;
   display: block;
   border: 1px solid transparent;
@@ -605,26 +605,26 @@ button:focus-visible {
   transition: transform var(--t-med) var(--ease), box-shadow var(--t-med) var(--ease),
     background var(--t-med) var(--ease);
 }
-.mak-card:hover,
-.mak-card:focus-visible {
+.matias-card:hover,
+.matias-card:focus-visible {
   transform: translateY(-2px);
   background:
     linear-gradient(160deg, rgba(28, 28, 35, 0.88), rgba(17, 17, 22, 0.88)) padding-box,
     var(--edge) border-box;
   box-shadow: var(--shadow-2), var(--glow-pink);
 }
-.mak-card:focus-visible {
+.matias-card:focus-visible {
   box-shadow: var(--shadow-2), var(--glow-pink), var(--focus-ring);
 }
 
-.mak-card.pinned,
-.mak-card.pinned:hover,
-.mak-card.pinned:focus-visible {
+.matias-card.pinned,
+.matias-card.pinned:hover,
+.matias-card.pinned:focus-visible {
   background:
     linear-gradient(160deg, rgba(26, 24, 20, 0.85), rgba(16, 15, 12, 0.85)) padding-box,
     var(--edge-amber) border-box;
 }
-.mak-card.pinned:hover { box-shadow: var(--shadow-2), var(--glow-amber); }
+.matias-card.pinned:hover { box-shadow: var(--shadow-2), var(--glow-amber); }
 
 .entity-card {
   display: flex;
@@ -702,14 +702,14 @@ button:focus-visible {
   transform: translateX(-4px);
   transition: opacity var(--t-med) var(--ease), transform var(--t-med) var(--ease);
 }
-.mak-card:hover .card-open,
-.mak-card:focus-visible .card-open {
+.matias-card:hover .card-open,
+.matias-card:focus-visible .card-open {
   opacity: 1;
   transform: none;
 }
 
-/* ─── Mr. Mak logo container ─── */
-.mak-logo { flex-shrink: 0; }
+/* ─── Matias logo container ─── */
+.matias-logo { flex-shrink: 0; }
 
 /* ─── Scrollbars ─── */
 ::-webkit-scrollbar { width: 8px; height: 8px; }
@@ -730,11 +730,11 @@ button:focus-visible {
     transition-duration: 0.01ms !important;
     animation-duration: 0.01ms !important;
   }
-  .mak-card:hover { transform: none; }
+  .matias-card:hover { transform: none; }
 }
 
 /* ─── 3D comparison step (Compare3D) ───────────────────────────────────────
-   Filming surface: two panes, one toolbar, nothing else. Uses the Mak tokens
+   Filming surface: two panes, one toolbar, nothing else. Uses the Matias tokens
    so it reads as part of the workspace rather than a bolted-on tool. */
 
 .c3d {

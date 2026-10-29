@@ -71,10 +71,10 @@ Thanks to @pbau3r-sfdy, @serhat1akman and @redDwarf03 for the contributions and 
 
 ## 0.4.19 - 2026-10-05
 
-- Talk to Mak now accepts pasted screenshots and attached images. Preview or
+- Talk to Matias now accepts pasted screenshots and attached images. Preview or
   remove them before sending; failed requests keep the draft and attachments.
   Codex receives the images as image inputs, and copies stay in your inbox.
-- Shift+Enter adds a new line in Talk to Mak. Enter sends the message, and
+- Shift+Enter adds a new line in Talk to Matias. Enter sends the message, and
   text composition with an input method does not submit it accidentally.
 - Microphone and message errors can be dismissed. Closing an error does not
   request microphone access again.
@@ -82,11 +82,11 @@ Thanks to @pbau3r-sfdy, @serhat1akman and @redDwarf03 for the contributions and 
   Project MCP connection checks also respect the agent's saved approval state.
 - Added optional offline asset delivery manifests from
   [zedarvates](https://github.com/zedarvates) in
-  [PR #11](https://github.com/witnesstodark/mr-mak-workspace/pull/11).
+  [PR #11](https://github.com/viictormatias/matias-game-dev-studio/pull/11).
   Build a file manifest or verify a delivery's sizes and hashes without an
   account or network request. See the [manifest guide](scripts/asset-delivery/README.md).
 
-**Update:** finish active tasks, quit Mr. Mak, then install the new package.
+**Update:** finish active tasks, quit Matias, then install the new package.
 For a source build, follow the [update guide](docs/updating.md). The optional
 manifest tool comes from the repository update. This release addresses #13,
 #14 and #15; the taskbar-icon report (#16) and the wider security review (#5)
@@ -95,7 +95,7 @@ remain open.
 ## 0.4.18 - 2026-10-04
 
 - Added Linux desktop packaging and release build automation, contributed by
-  [rluders](https://github.com/rluders) in [PR #8](https://github.com/witnesstodark/mr-mak-workspace/pull/8).
+  [rluders](https://github.com/rluders) in [PR #8](https://github.com/viictormatias/matias-game-dev-studio/pull/8).
 - Added a project-adapter foundation with generic and Godot project detection,
   metadata, relevant files and optional editor/run commands when Godot is installed.
 - Added optional Markdown knowledge sources with resolved-path boundary checks,
@@ -105,7 +105,7 @@ remain open.
 - Release assets now use a dedicated staging folder and explicit repository
   selection. The browser check retains card-loading coverage without HMR.
 
-**Update:** quit Mr. Mak after active tasks finish and install the new Windows
+**Update:** quit Matias after active tasks finish and install the new Windows
 package. Existing projects, chat history and settings remain in place. For
 Preview or a source build, merge the update and follow [the update guide](docs/updating.md).
 Linux packaging is covered by CI; macOS build automation is included but has
@@ -130,7 +130,7 @@ not been interactively validated. This release includes the 0.4.17 reading theme
 - Browser checks now run the same workspace-link setup as `npm run dev`, and
   verify card navigation, shared dialog styling and recovery after a failed load.
 
-**Update:** finish active tasks, quit Mr. Mak and install the Windows update.
+**Update:** finish active tasks, quit Matias and install the Windows update.
 For browser preview, merge the latest source, stop your Preview server, then
 run `Setup.ps1 -Mode Preview` again and reload the browser. Dark remains the
 default. Issue #1 stays open for confirmation from the reporter.
@@ -151,7 +151,7 @@ default. Issue #1 stays open for confirmation from the reporter.
 - Setup now accepts OpenCode as the primary CLI. Permission auto-approval remains
   off by default; OpenCode's explicit deny rules remain in effect when enabled.
 
-**Update:** finish active tasks, quit Mr. Mak and install the Windows update.
+**Update:** finish active tasks, quit Matias and install the Windows update.
 Install and configure OpenCode separately if you want to use it. Existing chats
 and project content are preserved. The 0.4.14 skills pack is unchanged.
 
@@ -168,7 +168,7 @@ and project content are preserved. The 0.4.14 skills pack is unchanged.
   [GHSA-hrr3-gc8f-f4qj](https://github.com/advisories/GHSA-hrr3-gc8f-f4qj).
 - Added browser preview regression checks and a private security reporting guide.
 
-**Update:** finish active tasks, quit Mr. Mak, then install the Windows update.
+**Update:** finish active tasks, quit Matias, then install the Windows update.
 For browser preview, merge the source update, run `npm ci`, then restart Vite.
 The skills pack from 0.4.14 is unchanged. The separate report in issue #5 remains
 open while we await its private reproduction details; this release does not
@@ -198,7 +198,7 @@ merge them separately or use the skills ZIP. See [the update guide](docs/updatin
 - Fixed mouse-wheel scrolling in fullscreen Claude Code chats after opening a tab or returning to it. Scrolling also survives reconnects.
 - Terminal snapshots and saved screens now preserve the mouse protocol requested by the CLI. Codex and classic Claude keep their existing scrollback behavior.
 
-**Update:** finish active tasks, quit Mr. Mak Workspace from its tray menu, then run the new Windows installer. Open your existing repository; project files, settings and chat history stay in place.
+**Update:** finish active tasks, quit Matias Game Dev Studio from its tray menu, then run the new Windows installer. Open your existing repository; project files, settings and chat history stay in place.
 
 ## 0.1.1 - 2026-09-22
 
@@ -206,7 +206,7 @@ merge them separately or use the skills ZIP. See [the update guide](docs/updatin
 - The bottom terminal row stays visible above the connection bar, including the model and reasoning effort.
 - New Codex and Claude chats default to `xhigh`. Existing saved effort choices are kept; task-specific voice requests can still select an appropriate effort.
 
-**Update:** finish active tasks, quit Mr. Mak Workspace from its tray menu, then run the new Windows installer. Open it with your existing repository. Your project files, settings and chat history stay in place.
+**Update:** finish active tasks, quit Matias Game Dev Studio from its tray menu, then run the new Windows installer. Open it with your existing repository. Your project files, settings and chat history stay in place.
 
 The installer updates the application. It does not replace the sample cards or your repository content. If you build from source, bring in this release's application changes and rebuild; keep your own Workspace files and context.
 

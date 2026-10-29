@@ -9,7 +9,7 @@ import { localDay } from '../workspace.mjs';
 import { launchBrowser, desktopAuth } from './browser.mjs';
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '../../..');
-const sampleAssets = process.env.MRMAK_CARDS_SAMPLE_DIR || path.join(root, 'workspace/2026-09-15_my-dream-game/assets');
+const sampleAssets = process.env.MATIAS_CARDS_SAMPLE_DIR || path.join(root, 'workspace/2026-09-15_my-dream-game/assets');
 await mkdir(path.join(root, '.cache'), { recursive: true });
 const repo = await mkdtemp(path.join(root, '.cache', 'cards-ui-'));
 await cp(path.join(root, 'dist'), path.join(repo, 'ui'), { recursive: true });

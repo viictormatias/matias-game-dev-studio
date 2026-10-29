@@ -11,7 +11,7 @@ function ThemedFrame({ url, onLoad, ...props }: Props) {
   // use a message, preserving scroll position and the report's interactive state.
   const [src] = useState(() => {
     const target = new URL(url, location.href)
-    target.searchParams.set('mrmak-theme', resolved)
+    target.searchParams.set('matias-theme', resolved)
     return target.href
   })
   const applyTheme = useCallback(() => {
@@ -25,18 +25,18 @@ function ThemedFrame({ url, onLoad, ...props }: Props) {
     if (sameOrigin) try {
       const doc = element.contentDocument
       if (doc?.documentElement) {
-        if (!doc.querySelector('style[data-mrmak-report-theme]')) {
+        if (!doc.querySelector('style[data-matias-report-theme]')) {
           const style = doc.createElement('style')
-          style.dataset.mrmakReportTheme = ''
+          style.dataset.matiasReportTheme = ''
           style.textContent = reportThemeCSS
           ;(doc.head || doc.documentElement).append(style)
         }
-        doc.documentElement.dataset.mrmakTheme = resolved
+        doc.documentElement.dataset.mrmatiasTheme = resolved
       }
     } catch { /* Cross-origin reports use the message below. */ }
     // A desktop report runs in an opaque origin, which no target origin can name.
     // The message only carries the theme name.
-    element.contentWindow?.postMessage({ type: 'mrmak:theme', theme: resolved }, '*')
+    element.contentWindow?.postMessage({ type: 'matias:theme', theme: resolved }, '*')
   }, [resolved, url])
   useEffect(applyTheme, [applyTheme])
   return <iframe {...props} ref={frame} src={src} onLoad={() => { applyTheme(); onLoad?.() }} />

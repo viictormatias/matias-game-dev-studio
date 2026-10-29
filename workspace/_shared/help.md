@@ -1,4 +1,4 @@
-# Welcome to Mr. Mak Workspace
+# Welcome to Matias Game Dev Studio
 
 Work with your agents in Chats. Read, compare and keep their results in Workspace.
 Your project folders connect the two. You can use the Workspace without reading
@@ -8,7 +8,7 @@ source code or moving every conversation into one agent's app.
 
 Claude Code and Codex chats use the real installed CLI with its existing login.
 An eligible Claude Pro/Max or ChatGPT subscription can be used without adding an
-API key to Mr. Mak. Normal plan limits apply. Only the optional voice connection
+API key to Matias. Normal plan limits apply. Only the optional voice connection
 requires an OpenAI API key; optional generation services use their own accounts.
 
 OpenCode is available in **+ > OpenCode** after installation. Configure its models
@@ -57,7 +57,7 @@ between Gallery and Research without losing the content.
 file. An agent can work with that same file. If it changes while you are editing,
 the editor keeps your draft and asks you to review the latest version. Save
 before closing the app. Previous saved contents are kept locally in
-`.mrmak/card-backups/`.
+`.matias/card-backups/`.
 
 The starter's My Dream Game and Creative MCP Connections include editable example
 tabs. Existing custom HTML pages keep their layouts. Phone access can read the
@@ -110,11 +110,11 @@ complete modules into your project, and install only their required dependencies
 Use your own provider accounts and keys. A skill does not include someone else's
 subscription, running terminal, API balance or signed-in application.
 
-## Talking to Mr. Mak
+## Talking to Matias
 
 Press the nose button to start or stop a voice conversation. Ask for quick actions
 such as opening a chat, finding a card, checking recent work or changing a card's
-status. For a larger task, ask Mr. Mak to create an agent conversation and follow
+status. For a larger task, ask Matias to create an agent conversation and follow
 its result. You can continue working directly in any terminal.
 
 Voice uses the configured API connection. Terminal agents use their own installed
@@ -133,7 +133,7 @@ The current choices are visible in Settings and in the agent or provider setup.
 | Ctrl+V in a chat (⌘V on macOS) | Paste text or a clipboard screenshot |
 | Ctrl+S while editing Markdown (⌘S or Ctrl+S on macOS) | Save the document |
 | Escape in an image preview | Close the enlarged image |
-| Optional Win-key recall (Windows) | Bring back open Mr. Mak windows; configurable in Settings. macOS has its own recall shortcut in Settings > Shortcut |
+| Optional Win-key recall (Windows) | Bring back open Matias windows; configurable in Settings. macOS has its own recall shortcut in Settings > Shortcut |
 | Ctrl+Esc (Windows) | Open Windows Start |
 
 Settings also contains terminal text size and appearance, the default agent,

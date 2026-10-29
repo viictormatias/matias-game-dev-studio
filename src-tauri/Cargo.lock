@@ -2205,7 +2205,7 @@ dependencies = [
 ]
 
 [[package]]
-name = "mrmak-workspace"
+name = "matias-game-dev-studio"
 version = "0.6.1"
 dependencies = [
  "drag",

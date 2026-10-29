@@ -15,14 +15,14 @@ function restoreDraft(key: string, fallback: string) {
 export function MarkdownView({ text, baseUrl }: { text: string; baseUrl?: string }) {
   // Browser preview supplies /workspace/...; URL's base must be absolute.
   const base = baseUrl ? new URL(baseUrl, window.location.href).href : undefined
-  return <article className="mak-markdown"><Markdown remarkPlugins={[remarkGfm]} components={{
+  return <article className="matias-markdown"><Markdown remarkPlugins={[remarkGfm]} components={{
     a: ({ href, children }) => <a href={href?.startsWith('#') ? href : href && base ? new URL(href, base).href : href} target={href?.startsWith('#') ? undefined : '_blank'} rel="noreferrer">{children}</a>,
     img: ({ src, alt }) => <ZoomImage src={typeof src === 'string' ? base ? new URL(src, base).href : src : undefined} alt={alt} />,
   }}>{text}</Markdown></article>
 }
 
 export default function MarkdownDocument({ file }: { file: Preview }) {
-  const draftKey = `mrmak.md-draft.${file.path}`
+  const draftKey = `matias.md-draft.${file.path}`
   const [saved, setSaved] = useState(file.text || '')
   const [draft, setDraft] = useState(() => restoreDraft(draftKey, file.text || ''))
   const [revision, setRevision] = useState(file.revision)

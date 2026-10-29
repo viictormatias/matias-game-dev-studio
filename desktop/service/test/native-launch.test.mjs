@@ -10,7 +10,7 @@ import { shellCommand } from '../platform.mjs';
 import { attachmentText } from '../attachments.mjs';
 
 test('Windows native executables receive literal arguments without a PowerShell wrapper', { skip: process.platform !== 'win32', timeout: 15000 }, async () => {
-  const folder = await mkdtemp(path.join(os.tmpdir(), "mrmak owner's launch-"));
+  const folder = await mkdtemp(path.join(os.tmpdir(), "matias owner's launch-"));
   const exe = path.join(folder, 'agent fixture.exe');
   const script = path.join(folder, 'record arguments.mjs');
   const output = path.join(folder, 'arguments.json');
@@ -35,7 +35,7 @@ test('Windows command shims still use the full PowerShell path and quote literal
 });
 
 test('PowerShell shim arguments and pasted paths preserve all apostrophe delimiters without evaluating them', { skip: process.platform !== 'win32', timeout: 15000 }, async () => {
-  const folder = await mkdtemp(path.join(os.tmpdir(), 'mrmak-smart-quotes-'));
+  const folder = await mkdtemp(path.join(os.tmpdir(), 'matias-smart-quotes-'));
   const shim = path.join(folder, 'record.ps1');
   await writeFile(shim, '[Console]::OutputEncoding=[Text.UTF8Encoding]::new(); ConvertTo-Json -Compress -InputObject @($args)', 'utf8');
   const literals = ["'", '\u2018', '\u2019', '\u201a', '\u201b'].map(quote => `left${quote}; Write-Output EVALUATED; #right`);

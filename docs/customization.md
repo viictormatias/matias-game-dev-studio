@@ -15,7 +15,7 @@ short English label chosen in New chat or from a tab's right-click menu, and
 renamed or deleted from its chip's right-click menu; History's group filters
 delete a group that only closed chats still carry. Collapsed groups are
 remembered per installation. The Win-key shortcut is
-optional: when enabled, a single Win press returns to hidden Mr. Mak windows;
+optional: when enabled, a single Win press returns to hidden Matias windows;
 when they are already in view, it opens Start. Win combinations remain normal.
 On macOS, the same option is under Settings > Shortcut: its key combination
 brings back the windows from any app, and clicking the Dock icon also restores
@@ -63,10 +63,10 @@ starting a paid job. Higgsfield uses its own CLI setup and account.
 ## Design rules
 
 Use the shared report style, readable headings and consistent card spacing.
-Standard HTML reports use `data-mak-report="document"` on the root element and
+Standard HTML reports use `data-matias-report="document"` on the root element and
 follow the reader's Workspace theme. Use shared color tokens so custom sections
 remain readable. For an intentionally independent design, such as a game demo,
-add `data-mak-theme="custom"` to the root element to keep its original palette.
+add `data-matias-theme="custom"` to the root element to keep its original palette.
 Images, videos and canvases keep their colors in every theme.
 
 Every report image must open at full size and offer a download. Keep wide tables

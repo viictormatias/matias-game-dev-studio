@@ -8,10 +8,10 @@ import { validateCard, validateCardDraft, cardSourceUrl, CARD_MAX_ITEMS } from '
 import { MobileReports } from '../mobile-reports.mjs';
 import { saveJson } from '../util.mjs';
 
-const sample = () => ({ format: 'mrmak-card', version: 1, template: 'gallery', title: 'Reference gallery', summary: 'A **shared** source of content.', items: [{ id: 'first', title: 'First concept', body: 'Review the shape.', status: 'review', prompt: 'A round character.' }] });
+const sample = () => ({ format: 'matias-card', version: 1, template: 'gallery', title: 'Reference gallery', summary: 'A **shared** source of content.', items: [{ id: 'first', title: 'First concept', body: 'Review the shape.', status: 'review', prompt: 'A round character.' }] });
 const image = Buffer.from('iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mP8/x8AAwMCAO+aYa4AAAAASUVORK5CYII=', 'base64');
 async function fixture(t) {
-  const repo = await mkdtemp(path.join(os.tmpdir(), 'mrmak-cards-'));
+  const repo = await mkdtemp(path.join(os.tmpdir(), 'matias-cards-'));
   await mkdir(path.join(repo, 'workspace', 'sample'), { recursive: true });
   await mkdir(path.join(repo, 'ui')); await writeFile(path.join(repo, 'ui', 'index.html'), '<!doctype html><title>Test</title>');
   const file = path.join(repo, 'workspace/sample/content.card.json');
@@ -20,7 +20,7 @@ async function fixture(t) {
   const entity = { id: 'sample', title: 'Sample project', folder: 'sample', type: 'group', category: 'research', status: 'active', created: '2026-01-01', custom: 'keep', steps: [{ name: 'Editable gallery', path: 'content.card.json', viewer: 'card' }, { name: 'Original HTML', path: 'report.html' }] };
   await writeFile(path.join(repo, 'workspace/workspace.json'), JSON.stringify({ entities: [entity], customRoot: 'keep' }));
   const service = await createService({ repo, uiDir: path.join(repo, 'ui') });
-  t.after(async () => { await service.close(); assert.equal(path.dirname(repo), path.resolve(os.tmpdir())); assert.ok(path.basename(repo).startsWith('mrmak-cards-')); await rm(repo, { recursive: true, force: true }); });
+  t.after(async () => { await service.close(); assert.equal(path.dirname(repo), path.resolve(os.tmpdir())); assert.ok(path.basename(repo).startsWith('matias-cards-')); await rm(repo, { recursive: true, force: true }); });
   const request = (route, body, method, extra = {}) => fetch(`${service.origin}/api${route}`, { method: method || (body === undefined ? 'GET' : 'POST'), headers: { Authorization: `Bearer ${service.token}`, Origin: service.origin, 'Content-Type': 'application/json', ...extra }, ...(body !== undefined ? { body: JSON.stringify(body) } : {}) });
   const read = async () => (await request('/workspace/cards/sample/0')).json();
   return { repo, file, original, service, request, read, entity };
@@ -60,9 +60,9 @@ test('save preserves custom reports and creates an exact recovery copy; simultan
   const saved = await results.find(result => result.status === 200).json();
   assert.notEqual(saved.revision, snapshot.revision);
   assert.equal(JSON.parse(await readFile(file, 'utf8')).title, saved.document.title);
-  const backups = await readdir(path.join(repo, '.mrmak/card-backups'));
+  const backups = await readdir(path.join(repo, '.matias/card-backups'));
   assert.equal(backups.filter(file => file.endsWith('.card.json')).length, 1);
-  assert.equal(await readFile(path.join(repo, '.mrmak/card-backups', backups.find(file => file.endsWith('.card.json'))), 'utf8'), original);
+  assert.equal(await readFile(path.join(repo, '.matias/card-backups', backups.find(file => file.endsWith('.card.json'))), 'utf8'), original);
   const registry = JSON.parse(await readFile(path.join(repo, 'workspace/workspace.json'), 'utf8'));
   assert.equal(registry.customRoot, 'keep'); assert.equal(registry.entities[0].title, entity.title); assert.equal(registry.entities[0].custom, 'keep');
   assert.deepEqual(registry.entities[0].steps, entity.steps); assert.ok(registry.entities[0].updated);
@@ -106,7 +106,7 @@ test('image import stays in the card folder, checks file type and never trusts t
 
 test('card edits and uploads reject folders linked outside the Workspace', async t => {
   const { repo, request, service } = await fixture(t);
-  const outside = await mkdtemp(path.join(os.tmpdir(), 'mrmak-cards-outside-'));
+  const outside = await mkdtemp(path.join(os.tmpdir(), 'matias-cards-outside-'));
   t.after(async () => { assert.equal(path.dirname(outside), path.resolve(os.tmpdir())); await rm(outside, { recursive: true, force: true }); });
   await writeFile(path.join(outside, 'content.card.json'), JSON.stringify(sample()));
   await symlink(outside, path.join(repo, 'workspace/escaped'), process.platform === 'win32' ? 'junction' : 'dir');

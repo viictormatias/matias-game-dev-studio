@@ -16,7 +16,7 @@ function NewCardDialog({ onClose }: { onClose: () => void }) {
     setBusy(true); setError('')
     try {
       const { entity } = await api<{ entity: WorkspaceEntity }>('/workspace/cards', { title, template })
-      window.dispatchEvent(new Event('mrmak-workspace-changed')); location.hash = entityHash(entity.id)
+      window.dispatchEvent(new Event('matias-game-dev-studio-changed')); location.hash = entityHash(entity.id)
       onClose()
     } catch (error) { setError(error instanceof Error ? error.message : String(error)); setBusy(false) }
   }

@@ -11,7 +11,7 @@ const errorText = (error: unknown) => error instanceof Error ? error.message : S
 
 export default function EditableCard({ url, entityId, step }: { url: string; entityId: string; step: number }) {
   const route = `/workspace/cards/${encodeURIComponent(entityId)}/${step}`
-  const draftKey = `mrmak.card-draft.${entityId}.${step}`
+  const draftKey = `matias.card-draft.${entityId}.${step}`
   const [state, setState] = useState<EditorState>({ saved: null, draft: null, latest: null, editing: false, saving: false, message: '', error: '' })
   const [removed, setRemoved] = useState<{ item: CardItem; index: number } | null>(null)
   const mutation = useRef(0)
@@ -97,7 +97,7 @@ export default function EditableCard({ url, entityId, step }: { url: string; ent
       // Clear recovery synchronously: a navigation immediately after Save must not resurrect it.
       try { sessionStorage.removeItem(draftKey) } catch { /* Storage is optional. */ }
       setState(previous => ({ ...previous, saved, draft: saved.document, latest: null, saving: false, message: saved.warning || 'Saved', error: '' }))
-      setRemoved(null); window.dispatchEvent(new Event('mrmak-workspace-changed'))
+      setRemoved(null); window.dispatchEvent(new Event('matias-game-dev-studio-changed'))
     } catch (error) {
       setState(previous => ({ ...previous, saving: false, error: errorText(error) }))
       try { const latest = await api<Snapshot>(route); setState(previous => ({ ...previous, latest: latest.revision !== previous.saved?.revision ? latest : null })) } catch { /* The draft remains available while offline. */ }

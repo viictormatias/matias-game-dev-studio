@@ -62,7 +62,7 @@ export class CardDocuments {
     return this.write(async () => {
       const target = await this.resolve(id, step), source = await readFile(target.file, 'utf8');
       if (hash(source) !== revision) conflict();
-      const backups = path.join(this.repo, '.mrmak', 'card-backups');
+      const backups = path.join(this.repo, '.matias', 'card-backups');
       await mkdir(backups, { recursive: true });
       const actualBackups = await realpath(backups);
       if (!within(await realpath(this.repo), actualBackups)) fail('The recovery folder must stay inside this repository.');

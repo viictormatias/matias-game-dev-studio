@@ -23,13 +23,13 @@ Drafts survive switching cards and reloading the same app window when browser
 session storage is available. Save before closing the app; a draft is not a
 replacement for a saved file.
 
-If an agent or another window edits the file while your draft is open, Mr. Mak
+If an agent or another window edits the file while your draft is open, Matias
 keeps your draft and stops the save. **Review latest version** shows the disk
 version. You can download your draft before choosing **Discard my draft and
 load latest**, then reapply the changes you want. There is no silent force-save.
 
 Before replacing a saved card, the service keeps the previous contents under
-`.mrmak/card-backups/`, with a receipt identifying the original file. These are
+`.matias/card-backups/`, with a receipt identifying the original file. These are
 local recovery copies and are excluded from Git. Use Git for longer history.
 
 ## Where the content lives
@@ -70,7 +70,7 @@ Keep the data inside the entity folder:
 
 ```json
 {
-  "format": "mrmak-card",
+  "format": "matias-card",
   "version": 1,
   "template": "gallery",
   "title": "Character references",

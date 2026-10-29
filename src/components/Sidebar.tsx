@@ -3,8 +3,8 @@ import type { WorkspaceEntity } from '../types'
 import { entityHash } from '../lib/route'
 import { categoryIcon, categoryLabel } from '../lib/categories'
 import { contentUrl } from '../desktop/client'
-import MakLogo from './MakLogo'
-import MakText from './MakText'
+import MatiasLogo from './MatiasLogo'
+import MatiasText from './MatiasText'
 import { EntityStatusButton } from './EntityControls'
 
 interface SidebarProps {
@@ -61,9 +61,9 @@ export default function Sidebar({
   return (
     <aside className="sidebar">
       <div className="sidebar-brand">
-        <MakLogo size={54} animated={activeId !== 'my-dream-game'} />
+        <MatiasLogo size={54} animated={activeId !== 'my-dream-game'} />
         <div className="brand-text">
-          <MakText height={26} animated={activeId !== 'my-dream-game'} />
+          <MatiasText height={26} animated={activeId !== 'my-dream-game'} />
           <span className="brand-sub">workspace</span>
         </div>
         <button

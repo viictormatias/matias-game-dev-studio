@@ -49,7 +49,7 @@ try {
           assert.ok(await image.evaluate(node => node.complete && node.naturalWidth > 0), 'Card image should load in browser preview');
         }
       } else {
-        await page.locator('.mak-markdown h1').waitFor();
+        await page.locator('.matias-markdown h1').waitFor();
       }
       steps++;
     }
@@ -71,7 +71,7 @@ try {
     body: '# Relative references\n\n[Local file](../notes.md)\n\n[External](https://example.com/)\n\n![Reference](../reference.png)',
   }));
   await page.goto(`${url}#/${mdEntity.id}/${mdIndex}`);
-  await page.locator('.mak-markdown h1').waitFor();
+  await page.locator('.matias-markdown h1').waitFor();
   assert.equal(await page.getByRole('link', { name: 'Local file', exact: true }).getAttribute('href'), new URL('../notes.md', new URL(mdPath, url)).href);
   assert.equal(await page.getByRole('link', { name: 'External', exact: true }).getAttribute('href'), 'https://example.com/');
   assert.equal(await page.getByRole('img', { name: 'Reference', exact: true }).getAttribute('src'), new URL('../reference.png', new URL(mdPath, url)).href);
@@ -90,7 +90,7 @@ try {
   await page.getByLabel('Workspace theme', { exact: true }).selectOption('light');
   await page.getByRole('button', { name: 'Workspace settings', exact: true }).click();
   assert.equal(await page.locator('html').getAttribute('data-workspace-theme'), 'light');
-  assert.equal(await page.locator('.mak-markdown h1').evaluate(node => getComputedStyle(node).color), 'rgb(17, 21, 33)');
+  assert.equal(await page.locator('.matias-markdown h1').evaluate(node => getComputedStyle(node).color), 'rgb(17, 21, 33)');
   await page.getByRole('img', { name: 'Reference', exact: true }).click();
   await dialog.waitFor();
   assert.equal(await dialog.evaluate(node => getComputedStyle(node).backgroundColor), 'rgb(232, 235, 241)');
@@ -98,7 +98,7 @@ try {
   await page.goto(`${url}#/creative-mcp/0`);
   await page.locator('.report-document[aria-busy=false]').waitFor();
   const report = page.frameLocator('iframe.report-frame');
-  assert.equal(await report.locator('html').getAttribute('data-mrmak-theme'), 'light');
+  assert.equal(await report.locator('html').getAttribute('data-matias-theme'), 'light');
   assert.equal(await report.locator('body').evaluate(node => getComputedStyle(node).backgroundColor), 'rgb(255, 255, 255)');
   await page.reload();
   await page.locator('.report-document[aria-busy=false]').waitFor();

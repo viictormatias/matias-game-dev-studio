@@ -56,8 +56,8 @@ try {
   // The report runs in an opaque origin. Its policy blocks every request outside its own folder.
   const collected = []; await context.route('https://browser-check.example/collect**', route => { collected.push(route.request().url()); return route.fulfill({ body: 'collected' }); });
   await frame.locator('#probe').filter({ hasText: 'own-report-data' }).waitFor();
-  assert.equal(await page.evaluate(() => sessionStorage.getItem('mrmak.token')), null);
-  assert.equal(await page.evaluate(() => window.__MRMAK_BOOTSTRAP_TOKEN__), undefined);
+  assert.equal(await page.evaluate(() => sessionStorage.getItem('matias.token')), null);
+  assert.equal(await page.evaluate(() => window.__MATIAS_BOOTSTRAP_TOKEN__), undefined);
   assert.equal(new URL(page.url()).searchParams.get('token'), null);
   assert.deepEqual(JSON.parse(await frame.locator('#probe').textContent()), { own: 'own-report-data', otherReport: 'blocked', context: 'blocked', repositoryRoot: 'blocked', externalFetch: 'blocked', externalImage: 'blocked', origin: 'null', storage: 'blocked' });
   assert.deepEqual(collected, []);
@@ -75,7 +75,7 @@ try {
   const svgPage = await context.newPage();
   await svgPage.goto(service.files.url(path.join(repo, 'workspace/test/image.svg')));
   await svgPage.locator('#origin').filter({ hasText: 'null' }).waitFor();
-  assert.equal(await svgPage.evaluate(() => window.__MRMAK_BOOTSTRAP_TOKEN__), undefined);
+  assert.equal(await svgPage.evaluate(() => window.__MATIAS_BOOTSTRAP_TOKEN__), undefined);
   await svgPage.close();
 
   await page.goto(service.urls.chats);

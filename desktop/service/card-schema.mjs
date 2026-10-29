@@ -1,5 +1,5 @@
 // Shared by the desktop editor and service. Content is data, never executable HTML.
-export const CARD_FORMAT = 'mrmak-card';
+export const CARD_FORMAT = 'matias-card';
 export const CARD_VERSION = 1;
 export const CARD_MAX_BYTES = 1024 * 1024;
 export const CARD_MAX_ITEMS = 200;
@@ -27,7 +27,7 @@ export function cardSourceUrl(value) {
 }
 function validate(value, draft) {
   keys(value, ['format', 'version', 'template', 'title', 'summary', 'items'], 'This card');
-  if (value.format !== CARD_FORMAT || value.version !== CARD_VERSION) fail('This editable card version is not supported. Update Mr. Mak before editing it.');
+  if (value.format !== CARD_FORMAT || value.version !== CARD_VERSION) fail('This editable card version is not supported. Update Matias before editing it.');
   if (!cardTemplates.includes(value.template)) fail('Choose the Gallery or Research template.');
   text(value.title, 'Page title', 200, !draft);
   if (typeof value.title !== 'string') fail('Enter a page title.');

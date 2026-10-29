@@ -11,8 +11,8 @@
 .card-content{max-width:1180px;margin:0 auto;padding:44px 38px 64px;color:var(--text,#d3d0d9);overflow-wrap:anywhere}
 .card-document-heading{margin:0 0 30px;max-width:840px}.card-kicker{display:flex;gap:16px;align-items:center;margin-bottom:14px;font-size:11px;letter-spacing:.08em;color:var(--text-dim,#a29baa)}.card-kicker>span:first-child{color:var(--pink,#efa2b4);text-transform:uppercase;font-weight:600}
 .card-document-heading h1{font-size:clamp(28px,3.4vw,42px);font-weight:600;letter-spacing:-.035em;line-height:1.17;color:var(--text-bright,#f1edf4);margin:0 0 20px}
-.card-prose .mak-markdown{padding:0;max-width:none;margin:0;background:none;font-size:14px;line-height:1.8}.card-prose .mak-markdown p:first-child{margin-top:0}.card-prose .mak-markdown p:last-child{margin-bottom:0}.card-prose .mak-markdown h1,.card-prose .mak-markdown h2,.card-prose .mak-markdown h3{font-size:17px;letter-spacing:0}
-.card-prose .mak-markdown pre,.card-prose .mak-markdown table{max-width:100%;overflow:auto}.card-prose img{max-width:100%;height:auto}.card-introduction{color:var(--text-dim,#a29baa)}
+.card-prose .matias-markdown{padding:0;max-width:none;margin:0;background:none;font-size:14px;line-height:1.8}.card-prose .matias-markdown p:first-child{margin-top:0}.card-prose .matias-markdown p:last-child{margin-bottom:0}.card-prose .matias-markdown h1,.card-prose .matias-markdown h2,.card-prose .matias-markdown h3{font-size:17px;letter-spacing:0}
+.card-prose .matias-markdown pre,.card-prose .matias-markdown table{max-width:100%;overflow:auto}.card-prose img{max-width:100%;height:auto}.card-introduction{color:var(--text-dim,#a29baa)}
 .card-entries{display:grid;gap:22px}.card-template-gallery .card-entries{grid-template-columns:repeat(auto-fit,minmax(min(100%,280px),1fr))}
 .card-entry{min-width:0;border:1px solid var(--hairline-strong,#ffffff20);border-radius:13px;overflow:hidden;background:var(--surface-1,#18191f)}
 .card-entry-image{background:var(--bg-deep,#0c0c10);aspect-ratio:4/3;overflow:hidden}.card-entry-image>a{display:block;width:100%;height:100%;cursor:zoom-in}.card-entry-image img{width:100%;height:100%;object-fit:contain;display:block}

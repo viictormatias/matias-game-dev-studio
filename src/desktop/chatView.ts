@@ -2,10 +2,10 @@ import type { ChatSession } from './types'
 
 export type ChatView = 'conversation' | 'terminal'
 
-const key = (id: string) => `mrmak.chatView.${id}`
+const key = (id: string) => `matias.chatView.${id}`
 const read = (name: string) => { try { return localStorage.getItem(name) } catch { return null } }
 
-// Only these CLIs write a transcript Mr. Mak can read as a conversation.
+// Only these CLIs write a transcript Matias can read as a conversation.
 export const hasConversationView = (session: ChatSession) => session.agent === 'claude' || session.agent === 'codex'
 
 export function chatView(session: ChatSession): ChatView {

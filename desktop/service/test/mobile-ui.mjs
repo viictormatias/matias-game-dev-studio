@@ -17,18 +17,18 @@ const repo = await mkdtemp(path.join(root, '.cache/mobile-ui-'));
 await mkdir(path.join(repo, 'workspace/report'), { recursive: true });
 await mkdir(path.join(repo, 'workspace/_shared'), { recursive: true });
 await cp(path.join(root, 'dist'), path.join(repo, 'ui'), { recursive: true });
-for (const name of ['mak-nose.svg', 'mak-nose-chats.svg', 'mak-mobile-192.png', 'mak-mobile-512.png']) await copyFile(path.join(root, 'public/assets', name), path.join(repo, 'ui/assets', name));
+for (const name of ['matias-nose.svg', 'matias-nose-chats.svg', 'matias-mobile-192.png', 'matias-mobile-512.png']) await copyFile(path.join(root, 'public/assets', name), path.join(repo, 'ui/assets', name));
 for (const name of ['report.css', 'report.js']) await copyFile(path.join(root, 'workspace/_shared', name), path.join(repo, 'workspace/_shared', name));
 const png = Buffer.from('iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQ42mP8/x8AAwMCAO+jvWQAAAAASUVORK5CYII='.replace('EQ42', 'EQVR42'), 'base64');
 await writeFile(path.join(repo, 'shared-picture.png'), png);
 // Use a supplied SVG as a visible report image; the PNG is only an upload fixture.
-await copyFile(path.join(root, 'public/assets/mak-nose.svg'), path.join(repo, 'workspace/report/nose.svg'));
-await writeFile(path.join(repo, 'workspace/report/index.html'), '<!doctype html><html lang="en" data-mak-report="document"><head><meta name="viewport" content="width=device-width,initial-scale=1"><link rel="stylesheet" href="../_shared/report.css"><script defer src="../_shared/report.js"></script></head><body><main class="container"><h1>Report ready</h1><p>A readable result on your phone.</p><img src="nose.svg" alt="Report image" width="160"><p><a target="_blank" rel="noreferrer" href="https://example.com/source">Source link</a></p><div id="nested-scroll" style="height:100px;overflow:auto"><div style="height:600px">Nested content</div></div><div id="delayed-content" style="height:0">Long report content</div><script>window.addEventListener("load", () => setTimeout(() => document.getElementById("delayed-content").style.height = "2200px", 300))</script></main></body></html>');
+await copyFile(path.join(root, 'public/assets/matias-nose.svg'), path.join(repo, 'workspace/report/nose.svg'));
+await writeFile(path.join(repo, 'workspace/report/index.html'), '<!doctype html><html lang="en" data-matias-report="document"><head><meta name="viewport" content="width=device-width,initial-scale=1"><link rel="stylesheet" href="../_shared/report.css"><script defer src="../_shared/report.js"></script></head><body><main class="container"><h1>Report ready</h1><p>A readable result on your phone.</p><img src="nose.svg" alt="Report image" width="160"><p><a target="_blank" rel="noreferrer" href="https://example.com/source">Source link</a></p><div id="nested-scroll" style="height:100px;overflow:auto"><div style="height:600px">Nested content</div></div><div id="delayed-content" style="height:0">Long report content</div><script>window.addEventListener("load", () => setTimeout(() => document.getElementById("delayed-content").style.height = "2200px", 300))</script></main></body></html>');
 await writeFile(path.join(repo, 'workspace/report/plan.md'), '# Mobile plan\n\n**Keep the useful parts in view.**\n\n- Read results\n- Send a follow-up\n' + Array.from({ length: 60 }, (_, index) => `\nParagraph ${index + 1}: Read and continue reviewing this report.\n`).join(''));
 await writeFile(path.join(repo, 'workspace/workspace.json'), JSON.stringify({ entities: [{ id: 'mobile-report', title: 'A useful report', folder: 'report', category: 'dev', created: '2026-10-06', steps: [{ name: 'Report', path: 'index.html' }, { name: 'Plan', path: 'plan.md' }] }] }));
 const transport = { probe: async () => ({ ready: true, installed: true }), enable: async origin => ({ origin }), disable: async () => {} };
 const voiceCalls = [];
-const dictation = new MobileDictation(repo, { env: { OPENROUTER_API_KEY: 'test-voice-key', MRMAK_TRANSCRIBE_PROVIDER: 'openrouter' }, fetcher: async (url, options) => {
+const dictation = new MobileDictation(repo, { env: { OPENROUTER_API_KEY: 'test-voice-key', MATIAS_TRANSCRIBE_PROVIDER: 'openrouter' }, fetcher: async (url, options) => {
   voiceCalls.push({ url, size: options.body.get('file').size });
   return Response.json({ text: 'A dictated follow-up.' });
 } });
@@ -104,7 +104,7 @@ try {
     const response = await fetch(`${service.mobile.origin}${icon.src}`);
     assert.equal(response.status, 200); assert.match(response.headers.get('content-type'), /image\/png/);
   }
-  await desktop.getByAltText('Scan to connect this phone to Mr. Mak').waitFor();
+  await desktop.getByAltText('Scan to connect this phone to Matias').waitFor();
   await desktop.screenshot({ path: path.join(repo, 'desktop-pairing.png') });
   const mobileContext = await browser.newContext({ viewport: { width: 390, height: 844 }, deviceScaleFactor: 1, isMobile: true, hasTouch: true });
   await mobileContext.addInitScript(() => {
@@ -173,7 +173,7 @@ try {
   // Open from another site like a QR scanner, rather than an address-bar visit.
   qrSource = http.createServer((_request, response) => {
     response.writeHead(200, { 'Content-Type': 'text/html' });
-    response.end(`<a href="${pairing.url}">Open Mr. Mak</a>`);
+    response.end(`<a href="${pairing.url}">Open Matias</a>`);
   });
   await new Promise(resolve => qrSource.listen(0, 'localhost', resolve));
   await phone.goto(`http://localhost:${qrSource.address().port}`);
@@ -187,7 +187,7 @@ try {
     };
     service.mobile.server.on('request', inspect);
   });
-  await phone.getByRole('link', { name: 'Open Mr. Mak' }).click();
+  await phone.getByRole('link', { name: 'Open Matias' }).click();
   assert.equal(await navigationSite, 'cross-site');
   await phone.getByRole('button', { name: 'Request connection' }).click();
   await phone.getByRole('heading', { name: 'Confirm on your computer' }).waitFor();
@@ -233,17 +233,17 @@ try {
     event.userChoice = Promise.resolve({ outcome: 'dismissed' });
     window.dispatchEvent(event);
   });
-  await phone.getByRole('complementary', { name: 'Install Mr. Mak' }).waitFor();
+  await phone.getByRole('complementary', { name: 'Install Matias' }).waitFor();
   assert.equal(await phone.evaluate(() => window.installCalls), 0, 'Never open installation without a tap');
   await phone.screenshot({ path: path.join(repo, 'phone-install.png') });
   await phone.getByRole('button', { name: 'Not now', exact: true }).click();
-  assert.equal(await phone.getByRole('complementary', { name: 'Install Mr. Mak' }).count(), 0);
+  assert.equal(await phone.getByRole('complementary', { name: 'Install Matias' }).count(), 0);
   await phone.getByRole('button', { name: 'Phone settings' }).click();
   const speechProvider = phone.getByRole('combobox', { name: 'Dictation provider' });
   await speechProvider.selectOption('local'); await expect(speechProvider).toHaveValue('local');
   await phone.getByText(/Local Whisper needs setup on your computer/).waitFor();
   await speechProvider.selectOption('openrouter'); await expect(speechProvider).toHaveValue('openrouter');
-  await phone.getByRole('button', { name: 'Install Mr. Mak', exact: true }).click();
+  await phone.getByRole('button', { name: 'Install Matias', exact: true }).click();
   assert.equal(await phone.evaluate(() => window.installCalls), 1);
   await phone.getByRole('button', { name: 'Phone settings' }).click();
   await phone.evaluate(() => {
@@ -252,10 +252,10 @@ try {
     event.userChoice = Promise.resolve({ outcome: 'accepted' });
     window.dispatchEvent(event);
   });
-  assert.equal(await phone.getByRole('complementary', { name: 'Install Mr. Mak' }).count(), 0, 'Not now persists for this session');
+  assert.equal(await phone.getByRole('complementary', { name: 'Install Matias' }).count(), 0, 'Not now persists for this session');
   await phone.getByRole('button', { name: 'Phone settings' }).click();
-  await phone.getByRole('button', { name: 'Install Mr. Mak', exact: true }).click();
-  await phone.getByText('Mr. Mak is installed on this phone.', { exact: true }).waitFor();
+  await phone.getByRole('button', { name: 'Install Matias', exact: true }).click();
+  await phone.getByText('Matias is installed on this phone.', { exact: true }).waitFor();
   await phone.evaluate(() => window.dispatchEvent(new Event('appinstalled')));
   await phone.getByRole('button', { name: 'Phone settings' }).click();
 
@@ -367,7 +367,7 @@ try {
   await expect(readingVoice.locator('option')).toHaveCount(2);
   assert.deepEqual(await readingVoice.locator('option').evaluateAll(options => options.map(option => option.value)), ['am_michael', 'bf_emma']);
   await readingVoice.selectOption('bf_emma');
-  assert.equal(await phone.evaluate(() => localStorage.getItem('mrmak.mobile.read-aloud.voice')), 'bf_emma');
+  assert.equal(await phone.evaluate(() => localStorage.getItem('matias.mobile.read-aloud.voice')), 'bf_emma');
   await phone.getByRole('button', { name: 'Phone settings' }).click();
   await readButton.click();
   await phone.waitForFunction(() => window.testSpeech.spoken.at(-1)?.voice === 'bf_emma');
@@ -660,7 +660,7 @@ try {
   assert.equal(await phone.locator('.mobile-header h1').innerText(), 'A useful report');
   await expect.poll(() => frame.locator('#delayed-content').evaluate(node => node.offsetHeight)).toBe(2200);
   const htmlIdentity = await frame.locator('body').evaluate(() => { window.testReportIdentity = Math.random(); location.hash = '#chapter-two'; window.scrollTo(0,500); document.getElementById('nested-scroll').scrollTop = 180; return window.testReportIdentity; });
-  const reportKey = 'mrmak.mobile.report.mobile-report.0';
+  const reportKey = 'matias.mobile.report.mobile-report.0';
   await expect.poll(() => phone.evaluate(key => JSON.parse(localStorage.getItem(key) || '{}').top, reportKey)).toBe(500);
   await phone.getByRole('button', { name: 'Chats', exact: true }).click();
   await expect(stableDraft).toBeVisible();
@@ -670,7 +670,7 @@ try {
   assert.equal(await frame.locator('body').evaluate(() => window.scrollY), 500);
   assert.equal(await frame.locator('#nested-scroll').evaluate(node => node.scrollTop), 180);
   const beforeForged = await phone.evaluate(key => localStorage.getItem(key), reportKey);
-  await phone.evaluate(() => window.dispatchEvent(new MessageEvent('message', { source: window, origin: 'null', data: { type: 'mrmak:report-state', state: { path: 'malicious', top: 999, left: 0 } } })));
+  await phone.evaluate(() => window.dispatchEvent(new MessageEvent('message', { source: window, origin: 'null', data: { type: 'matias:report-state', state: { path: 'malicious', top: 999, left: 0 } } })));
   assert.equal(await phone.evaluate(key => localStorage.getItem(key), reportKey), beforeForged, 'Messages from another window cannot change report position');
   await reloadPhone();
   await frame.getByRole('heading', { name: 'Report ready' }).waitFor();
@@ -685,7 +685,7 @@ try {
     window.testMenuTrace = [];
     const record = value => { window.testMenuTrace.push({ at: Math.round(performance.now()), ...value }); if (window.testMenuTrace.length > 50) window.testMenuTrace.shift(); };
     const original = Storage.prototype.setItem;
-    Storage.prototype.setItem = function (key, value) { if (key === 'mrmak.mobile.workspace') record({ type: 'selection', value }); return original.call(this, key, value); };
+    Storage.prototype.setItem = function (key, value) { if (key === 'matias.mobile.workspace') record({ type: 'selection', value }); return original.call(this, key, value); };
     for (const type of ['pointerdown', 'pointerup', 'click', 'toggle']) document.addEventListener(type, event => {
       const target = event.target, menu = document.querySelector('.mobile-page-picker');
       record({ type, pointer: event.pointerType, target: target.tagName, label: target.closest('button,summary')?.getAttribute('aria-label') || target.textContent?.slice(0, 40), menuContains: menu?.contains(target), menuOpen: menu?.open });
@@ -701,7 +701,7 @@ try {
   await phone.getByRole('button', { name: 'Send', exact: true }).click();
   await phone.getByRole('button', { name: 'Retry', exact: true }).waitFor();
   const deliveredContext = contextPayloads[0].text;
-  const contextMetadata = text => JSON.parse(/\n(\{[^\n]+\})\n<\/mrmak_workspace_context>$/.exec(text)[1]);
+  const contextMetadata = text => JSON.parse(/\n(\{[^\n]+\})\n<\/matias_workspace_context>$/.exec(text)[1]);
   assert.deepEqual(contextMetadata(deliveredContext).workspace, { id: 'mobile-report', tabIndex: 0, title: 'A useful report', tab: 'Report', currentViewerPage: 'workspace/report/index.html', sectionAnchor: '#chapter-two' });
   assert.match(deliveredContext, /Do not read, open, or investigate this Workspace merely because this note is attached/);
   assert.ok(!deliveredContext.includes('/mobile/view/') && !deliveredContext.includes('Report ready'), 'No grant URL or report content is copied');
@@ -820,7 +820,7 @@ try {
   await phone.evaluate(async ({ id, data }) => {
     const response = await fetch(`/mobile/api/sessions/${id}/send`, { method: 'POST', credentials: 'same-origin', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(data) });
     if (!response.ok) throw new Error('Legacy fixture delivery failed');
-    localStorage.setItem(`mrmak.mobile.draft.${id}`, JSON.stringify(data));
+    localStorage.setItem(`matias.mobile.draft.${id}`, JSON.stringify(data));
   }, { id: ids[1], data: legacyRequest });
   await reloadPhone(); await phone.getByRole('button', { name: 'Retry', exact: true }).waitFor();
   await phone.getByRole('button', { name: 'Retry', exact: true }).click(); await phone.getByText('Delivered to terminal', { exact: true }).waitFor();
@@ -858,7 +858,7 @@ try {
   await desktop.locator(`[data-chat-tab="${ids[0]}"]`).waitFor();
   await desktop.getByRole('button', { name: 'Mobile access', exact: true }).click();
   await desktop.getByRole('button', { name: 'Disconnect', exact: true }).click();
-  await phone.getByRole('heading', { name: 'Start in Mr. Mak Chats' }).waitFor();
+  await phone.getByRole('heading', { name: 'Start in Matias Chats' }).waitFor();
   assert.equal(service.sessions.get(ids[0]).status, 'running'); assert.equal(service.sessions.get(ids[1]).status, 'running');
   if (navigationCancellations.length) console.log(`Expected WebKit read cancellations during reload: ${navigationCancellations.length}`);
   assert.deepEqual(errors, []);
@@ -866,7 +866,7 @@ try {
 } catch (error) {
   if (diagnosticPhone) {
     const state = await diagnosticPhone.evaluate(() => ({
-      navigation: localStorage.getItem('mrmak.mobile.navigation'), workspace: localStorage.getItem('mrmak.mobile.workspace'),
+      navigation: localStorage.getItem('matias.mobile.navigation'), workspace: localStorage.getItem('matias.mobile.workspace'),
       report: document.querySelector('.mobile-results')?.textContent?.slice(0, 800),
       headings: [...document.querySelectorAll('h1,h2')].map(node => node.textContent),
     })).catch(() => null);

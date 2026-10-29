@@ -18,7 +18,7 @@ export const themes = [
 ];
 
 const defaults = [
-  { id: 'dark', name: 'Dark', description: 'The original Mr. Mak palette.', scheme: 'dark', bg: '#0a0a0c', deep: '#060608', panel: '#131316', raised: '#232329', text: '#ececf1', muted: '#a5a5b1', accent: '#f0a0b0', secondary: '#b794f4' },
+  { id: 'dark', name: 'Dark', description: 'The original Matias palette.', scheme: 'dark', bg: '#0a0a0c', deep: '#060608', panel: '#131316', raised: '#232329', text: '#ececf1', muted: '#a5a5b1', accent: '#f0a0b0', secondary: '#b794f4' },
   { id: 'light', name: 'Light', description: 'White surfaces with dark ink.', scheme: 'light', bg: '#f7f8fa', deep: '#eef0f4', panel: '#ffffff', raised: '#e8ebf1', text: '#232735', muted: '#505b70', accent: '#98445e', secondary: '#6b48a4' },
 ];
 export const palettes = [...defaults, ...themes];
@@ -50,6 +50,6 @@ export function themeVariables(value) {
     '--glow-pink': `0 0 24px ${mix(p.accent, 7)}`, '--glow-pink-strong': `0 0 28px ${mix(p.accent, 12)}`,
     '--glow-amber': `0 0 24px ${mix(colors.amber, 8)}`, '--focus-ring': `0 0 0 2px ${mix(p.accent, 60)}`,
     '--on-accent': p.onAccent ?? (light ? '#ffffff' : p.deep),
-    '--mak-bg': p.panel, '--mak-surface': p.raised, '--mak-border': mix(p.text, 18), '--mak-text': p.text, '--mak-muted': p.muted, '--mak-accent': p.accent,
+    '--matias-bg': p.panel, '--matias-surface': p.raised, '--matias-border': mix(p.text, 18), '--matias-text': p.text, '--matias-muted': p.muted, '--matias-accent': p.accent,
   };
 }

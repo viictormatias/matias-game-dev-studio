@@ -47,7 +47,7 @@ try {
   }
   for (const width of [1440, 760]) {
     await page.setViewportSize({ width, height: 1060 });
-    for (const entity of entities.filter(e => !process.env.MRMAK_QA_GAME_ONLY || e.id === 'my-dream-game')) {
+    for (const entity of entities.filter(e => !process.env.MATIAS_QA_GAME_ONLY || e.id === 'my-dream-game')) {
       // Exercise the actual card link, which deliberately has no step index.
       await page.goto(service.urls.workspace + '#/');
       await page.locator(`.entity-card[data-entity="${entity.id}"]`).click();
@@ -96,16 +96,16 @@ try {
           }
           checks.push({ width, entity: entity.id, index, ...media });
         } else {
-          await page.locator('.mak-markdown h1').waitFor();
-          assert.doesNotMatch(await page.locator('.mak-markdown').innerText(), /[\u0400-\u04ff]/u);
+          await page.locator('.matias-markdown h1').waitFor();
+          assert.doesNotMatch(await page.locator('.matias-markdown').innerText(), /[\u0400-\u04ff]/u);
           checks.push({ width, entity: entity.id, index, markdown: true });
         }
       }
     }
     // Explicit routes still override the card default, including on reload.
     await page.goto(service.urls.workspace + '#/creative-mcp/1');
-    await page.locator('.mak-markdown h1').waitFor();
-    await page.reload(); await page.locator('.mak-markdown h1').waitFor();
+    await page.locator('.matias-markdown h1').waitFor();
+    await page.reload(); await page.locator('.matias-markdown h1').waitFor();
     // Invalid indices recover to the chosen default.
     await page.goto(service.urls.workspace + '#/creative-mcp/999');
     await frameLocator().locator('h1').waitFor();
@@ -125,14 +125,14 @@ try {
     await page.getByRole('treeitem', { name: /^SKILL.md/ }).click();
     await page.getByRole('heading', { name: 'fal.ai generation', exact: true }).waitFor();
     await page.getByRole('heading', { name: 'Run and retain the job', exact: true }).waitFor();
-    const documentText = await page.locator('.mak-markdown').innerText();
+    const documentText = await page.locator('.matias-markdown').innerText();
     assert.ok(documentText.length > 3000);
     assert.doesNotMatch(documentText, /[A-Z]:[\\/]Users[\\/]|[\u0400-\u04ff]/iu);
     await page.getByRole('button', { name: 'Close file preview' }).click();
     checks.push({ skillProvider: provider, completeInstructions: true });
   }
   assert.deepEqual(errors, []);
-  const focused = Boolean(process.env.MRMAK_QA_GAME_ONLY);
+  const focused = Boolean(process.env.MATIAS_QA_GAME_ONLY);
   await writeFile(path.join(root, `.cache/template-${focused ? 'game-' : ''}ui-result.json`), JSON.stringify({ passed: true, focused, checks, errors }, null, 2));
   console.log(`Template UI passed: ${checks.length} cases; ${focused ? 'game navigation, images, downloads, route defaults and both skill previews' : 'card defaults, explicit routes, game navigation, prompts, images, downloads, eight videos and both skill previews'}.`);
 } finally { await browser?.close(); await service.close(); }

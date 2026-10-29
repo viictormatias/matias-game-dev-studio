@@ -23,7 +23,7 @@ interface Transcript { supported: boolean; messages: Message[]; activity?: ToolA
 interface Draft { text: string; paths: string[] }
 
 const time = (value: string) => new Date(value).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
-const draftKey = (id: string) => `mrmak.chatDraft.${id}`
+const draftKey = (id: string) => `matias.chatDraft.${id}`
 const fileName = (file: string) => file.split(/[\\/]/).filter(Boolean).pop() || file
 function savedDraft(id: string): Draft {
   try {
@@ -174,9 +174,9 @@ export default function Conversation({ session, connected, agentLabel, openTermi
       setDragging(detail.phase !== 'drop' && inside)
       if (detail.phase === 'drop' && inside) addPathsRef.current(detail.paths || [])
     }
-    window.addEventListener('mrmak-attach-file', pick)
-    window.addEventListener('mrmak-file-drop', nativeDrop)
-    return () => { window.removeEventListener('mrmak-attach-file', pick); window.removeEventListener('mrmak-file-drop', nativeDrop) }
+    window.addEventListener('matias-attach-file', pick)
+    window.addEventListener('matias-file-drop', nativeDrop)
+    return () => { window.removeEventListener('matias-attach-file', pick); window.removeEventListener('matias-file-drop', nativeDrop) }
   }, [])
 
   async function send() {
@@ -287,7 +287,7 @@ export default function Conversation({ session, connected, agentLabel, openTermi
         }}
         onPaste={event => { const files = Array.from(event.clipboardData.files).filter(file => file.type.startsWith('image/')); if (files.length) { event.preventDefault(); void addImages(files) } }} />
       <div className="conversation-actions">
-        <button type="button" className="desk-icon" title="Attach files or folders" aria-label="Attach files" onClick={() => window.dispatchEvent(new Event('mrmak-attach-file'))}><Icon name="attach" size={16} /></button>
+        <button type="button" className="desk-icon" title="Attach files or folders" aria-label="Attach files" onClick={() => window.dispatchEvent(new Event('matias-attach-file'))}><Icon name="attach" size={16} /></button>
         <div className="terminal-dictation"><VoiceInput id={`desktop-conversation-${session.id}`} connected={connected} disabled={sending} config={dictation} transcriber={transcribeDesktopAudio} onBusy={setVoiceBusy} onText={text => setDraft(current => ({ ...current, text: current.text ? `${current.text}${/\s$/.test(current.text) ? '' : '\n'}${text}` : text }))} /></div>
         <span className="conversation-status" role="status">{status || (uploading ? 'Saving images…' : 'Enter to send · Shift+Enter for a new line')}</span>
         {working && <button type="button" className="conversation-stop" onClick={stop} title="Interrupt the agent (Esc)"><Icon name="stop" size={14} />Stop</button>}

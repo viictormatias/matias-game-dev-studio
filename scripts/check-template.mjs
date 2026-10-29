@@ -32,7 +32,7 @@ for (const entity of entities) {
       }
     }
     if (!file.endsWith('.html')) continue;
-    assert.match(content, /data-mak-report="document"/);
+    assert.match(content, /data-matias-report="document"/);
     assert.match(content, /_shared\/report\.js/);
     for (const match of content.matchAll(/\b(?:src|href)="([^"#]+)"/g)) {
       if (/^(?:https?:|data:)/.test(match[1])) continue;
@@ -70,6 +70,6 @@ assert.match(await read('desktop/service/server.mjs'), /defaultBypass: false/);
 assert.match(await read('desktop/service/sessions.mjs'), /bypass: options\.bypass === true/);
 assert.match(await read('desktop/service/sessions.mjs'), /pinned = false, bypass = false/);
 const readme = await read('README.md');
-assert.match(readme, /Mr\. Mak is small\.\s+<img src="docs\/assets\/mr-mak\.png"[^>]+>\s*$/);
-await stat(path.join(root, 'docs/assets/mr-mak.png'));
+assert.match(readme, /Matias is small\.\s+<img src="docs\/assets\/matias\.png"[^>]+>\s*$/);
+await stat(path.join(root, 'docs/assets/matias.png'));
 console.log(`Template passed: four cards, one pin, ${images.size} images, ${videos.size} videos, ${skillNames.length} shared skills, empty connections and account placeholders.`);

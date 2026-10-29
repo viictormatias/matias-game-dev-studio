@@ -39,7 +39,7 @@ const listen = server => new Promise((resolve, reject) => { server.once('error',
 
 export async function createService({ repo, uiDir, stateDir, token = secret(), native = () => {}, restoreSessions = false, mcpOptions, mobileOptions }) {
   repo = await realpath(repo);
-  stateDir ||= path.join(repo, '.mrmak');
+  stateDir ||= path.join(repo, '.matias');
   const dictation = mobileOptions?.dictation || new MobileDictation(repo);
   const files = new Files(repo);
   const attachments = new Attachments(repo);
@@ -57,7 +57,7 @@ export async function createService({ repo, uiDir, stateDir, token = secret(), n
   const environment = parseEnv(await readFile(path.join(repo, '.env'), 'utf8').catch(() => ''));
   const settingsPath = path.join(stateDir, 'settings.json');
   const savedSettings = await readJson(settingsPath, null);
-  let settings = { defaultAgent: 'codex', defaultBypass: false, coordinatorModel: environment.MRMAK_COORDINATOR_MODEL?.trim() || null, terminalFontSize: 13, terminalAppearance: 'original', workspaceTheme: 'dark', coordinatorEffort: 'medium', voiceName: 'cedar', voiceStyle: defaultVoiceStyle, handoffAfter: 40, groupTabsByProject: false, systemEvents: 'compact', ...savedSettings };
+  let settings = { defaultAgent: 'codex', defaultBypass: false, coordinatorModel: environment.MATIAS_COORDINATOR_MODEL?.trim() || null, terminalFontSize: 13, terminalAppearance: 'original', workspaceTheme: 'dark', coordinatorEffort: 'medium', voiceName: 'cedar', voiceStyle: defaultVoiceStyle, handoffAfter: 40, groupTabsByProject: false, systemEvents: 'compact', ...savedSettings };
   if (await dictation.initializeProvider?.(settings, savedSettings !== null)) await saveJson(settingsPath, settings);
   dictation.providerChoice = () => settings.transcribeProvider || null;
   const chooseDictation = async provider => {
@@ -111,8 +111,8 @@ export async function createService({ repo, uiDir, stateDir, token = secret(), n
       const latestRequest = requestText || coordinator.operations.get(operationId)?.text || '';
       if (['reopen_chat', 'send_to_chat', 'attach_files'].includes(name)) {
         const target = sessions.get(args.id);
-        if (target.agent === 'shell') throw new Error('Use the local shell directly. Mr. Mak can send tasks only to agent chats.');
-        if (target.bypass && settings.defaultBypass !== true) throw new Error('This chat uses bypass permissions. Send the task directly, or enable bypass yourself in Settings before using Mr. Mak to control it.');
+        if (target.agent === 'shell') throw new Error('Use the local shell directly. Matias can send tasks only to agent chats.');
+        if (target.bypass && settings.defaultBypass !== true) throw new Error('This chat uses bypass permissions. Send the task directly, or enable bypass yourself in Settings before using Matias to control it.');
       }
       switch (name) {
         case 'list_chats': return sessions.active();
@@ -123,7 +123,7 @@ export async function createService({ repo, uiDir, stateDir, token = secret(), n
         case 'pin_chat': return sessions.pin(args.id, args.pinned);
         case 'open_chat': {
           args = openChatArguments(args);
-          if (args.bypass === true && settings.defaultBypass !== true) throw new Error('To enable bypass, choose it yourself in New chat or Settings. Mr. Mak cannot raise the selected permission level.');
+          if (args.bypass === true && settings.defaultBypass !== true) throw new Error('To enable bypass, choose it yourself in New chat or Settings. Matias cannot raise the selected permission level.');
           const session = await sessions.create({ agent: args.agent, cwd: args.cwd, name: taskTitle(args.name), effort: taskEffort(latestRequest, args.effort), bypass: args.bypass === false ? false : settings.defaultBypass === true });
           focus(session.id); return session;
         }
@@ -161,7 +161,7 @@ export async function createService({ repo, uiDir, stateDir, token = secret(), n
     },
   }).init();
   const quick = await new QuickActions({ stateDir, workspace, context: () => ({ chats: sessions.active(), route: workspaceRoute }), execute: (...args) => coordinator.execute(...args), completed: operation => broadcast('coordinator-result', { operation }) }).init();
-  const askMak = async data => {
+  const askMatias = async data => {
     if (coordinator.operationPromises.has(data.id) || coordinator.operations.has(data.id)) return coordinator.ask(data);
     const images = await attachments.coordinatorImages(data.images);
     if (images.length) return coordinator.ask({ ...data, images });
@@ -193,13 +193,13 @@ export async function createService({ repo, uiDir, stateDir, token = secret(), n
   function authorize(request) {
     if (request.headers.host !== new URL(origin).host) throw Object.assign(new Error('Unexpected host'), { status: 403 });
     if (request.headers.origin && request.headers.origin !== origin) throw Object.assign(new Error('Unexpected origin'), { status: 403 });
-    if (!equalSecret(request.headers.authorization, `Bearer ${token}`)) throw Object.assign(new Error('Open Mr. Mak from its desktop launcher'), { status: 401 });
+    if (!equalSecret(request.headers.authorization, `Bearer ${token}`)) throw Object.assign(new Error('Open Matias from its desktop launcher'), { status: 401 });
   }
   const server = http.createServer(async (request, response) => {
     try {
       const url = new URL(request.url, origin);
       if (request.headers.host !== new URL(origin).host) throw Object.assign(new Error('Unexpected host'), { status: 403 });
-      if (url.pathname === '/health') return json(response, 200, { service: 'mrmak', version: '0.6.0' });
+      if (url.pathname === '/health') return json(response, 200, { service: 'matias', version: '0.6.0' });
       // An <img> cannot send the bearer token. Its unguessable, short-lived grant
       // is issued only through an authorized messages request for this chat.
       const media = /^\/media\/([a-f0-9-]{36})\/([a-zA-Z0-9_-]{43})$/.exec(url.pathname);
@@ -401,7 +401,7 @@ export async function createService({ repo, uiDir, stateDir, token = secret(), n
           const file = await realpath(path.resolve(data.path));
           native({ type: 'reveal', path: file }); return json(response, 200, { requested: true });
         }
-        if (method === 'POST' && url.pathname === '/api/coordinator') return json(response, 200, await askMak(data));
+        if (method === 'POST' && url.pathname === '/api/coordinator') return json(response, 200, await askMatias(data));
         if (method === 'POST' && url.pathname === '/api/coordinator/prepare') { await coordinator.start(); return json(response, 200, { ready: true, model: coordinator.model }); }
         if (method === 'POST' && url.pathname === '/api/live/transcript') {
           if (typeof data.id !== 'string' || data.id.length > 200 || !Array.isArray(data.captions)) throw new Error('A voice session and captions are required.');

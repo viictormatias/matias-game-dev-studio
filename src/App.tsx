@@ -2,7 +2,7 @@ import { lazy, Suspense, useCallback, useEffect, useRef, useState } from 'react'
 import type { WorkspaceEntity } from './types'
 import { useWorkspace, archiveCutoff } from './lib/workspace'
 import { parseHash, entityHash, resolveStep, type Route } from './lib/route'
-import MakLogo from './components/MakLogo'
+import MatiasLogo from './components/MatiasLogo'
 import Sidebar from './components/Sidebar'
 import Topbar from './components/Topbar'
 import HomeGrid from './components/HomeGrid'
@@ -15,7 +15,7 @@ const ReportViewer = lazy(() => import('./components/ReportViewer'))
 const EditableCard = lazy(() => import('./components/EditableCard'))
 
 // Freshly-touched work always burns at the top: sort by `updated` (falls back
-// to `created`), regardless of status — a report Mak just edited must not sink
+// to `created`), regardless of status — a report Matias just edited must not sink
 // under long-lived "active" entities. Status only breaks ties.
 const lastTouched = (e: WorkspaceEntity) => e.updated ?? e.created
 const statusRank = (e: WorkspaceEntity) => (e.status === 'active' ? 0 : 1)
@@ -28,12 +28,12 @@ export default function App() {
   const [query, setQuery] = useState('')
   const [showArchived, setShowArchived] = useState(false)
   const [collapsed, setCollapsed] = useState(
-    () => isDesktop || localStorage.getItem('mak.sidebarCollapsed') === '1',
+    () => isDesktop || localStorage.getItem('matias.sidebarCollapsed') === '1',
   )
   const searchRef = useRef<HTMLInputElement>(null)
 
   useEffect(() => {
-    localStorage.setItem('mak.sidebarCollapsed', collapsed ? '1' : '0')
+    localStorage.setItem('matias.sidebarCollapsed', collapsed ? '1' : '0')
   }, [collapsed])
 
   const entities = workspace?.entities ?? []
@@ -72,7 +72,7 @@ export default function App() {
   }, [])
 
   useEffect(() => {
-    document.title = entity ? `Mr. Mak — ${entity.title}` : 'Mr. Mak — Workspace'
+    document.title = entity ? `Matias — ${entity.title}` : 'Matias — Workspace'
   }, [entity])
 
   const goHome = useCallback(() => {
@@ -88,7 +88,7 @@ export default function App() {
   if (!workspace) {
     return (
       <div className="boot">
-        <MakLogo size={76} />
+        <MatiasLogo size={76} />
       </div>
     )
   }
@@ -147,10 +147,10 @@ export default function App() {
       <button
         className="sidebar-reopen"
         onClick={() => setCollapsed(false)}
-        title="Mostrar menu — aperte o nariz do Mr. Mak ( [ )"
+        title="Mostrar menu — aperte o nariz do Matias ( [ )"
         aria-label="Mostrar menu"
       >
-        <MakLogo size={38} animated={route.id !== 'my-dream-game'} />
+        <MatiasLogo size={38} animated={route.id !== 'my-dream-game'} />
       </button>
 
       <main className="main">
@@ -169,13 +169,13 @@ export default function App() {
           {entity && reportUrl && step?.viewer === 'card' ? (
             <Suspense fallback={<div className="report-loading">Abrindo card…</div>}><EditableCard key={`${entity.id}:${stepIndex}`} url={reportUrl} entityId={entity.id} step={stepIndex} /></Suspense>
           ) : entity && reportUrl && step?.viewer === 'compare3d' ? (
-            <Suspense fallback={<div className="boot"><MakLogo size={56} animated={false} /></div>}><Compare3D
+            <Suspense fallback={<div className="boot"><MatiasLogo size={56} animated={false} /></div>}><Compare3D
               key={reportUrl}
               manifestUrl={reportUrl}
               baseUrl={reportUrl.slice(0, reportUrl.lastIndexOf('/'))}
             /></Suspense>
           ) : entity && reportUrl ? (
-            <Suspense fallback={<div className="boot"><MakLogo size={56} animated={false} /></div>}><ReportViewer key={reportUrl} url={reportUrl} title={step?.name ?? entity.title} relativePath={`workspace/${entity.folder}/${step?.path}`} /></Suspense>
+            <Suspense fallback={<div className="boot"><MatiasLogo size={56} animated={false} /></div>}><ReportViewer key={reportUrl} url={reportUrl} title={step?.name ?? entity.title} relativePath={`workspace/${entity.folder}/${step?.path}`} /></Suspense>
           ) : (
             <HomeGrid
               entities={entities}

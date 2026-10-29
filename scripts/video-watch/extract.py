@@ -141,7 +141,7 @@ def make_report(entity_dir: Path, meta: dict):
         </figure>""")
 
     html = f"""<!doctype html>
-<html lang="en" data-mak-report="document"><head><meta charset="utf-8"/>
+<html lang="en" data-matias-report="document"><head><meta charset="utf-8"/>
 <meta name="viewport" content="width=device-width,initial-scale=1"/>
 <title>Video Watch &mdash; {html_utils.escape(meta['entity'])}</title>
 <link rel="stylesheet" href="../_shared/report.css"/>

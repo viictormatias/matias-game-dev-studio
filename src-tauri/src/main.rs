@@ -19,7 +19,7 @@ mod win_key;
 #[cfg(target_os = "macos")]
 mod mac_key;
 
-// The "recall Mr. Mak" shortcut: a bare Win-key tap on Windows, ⌃⌥⌘Space on macOS.
+// The "recall Matias" shortcut: a bare Win-key tap on Windows, ⌃⌥⌘Space on macOS.
 #[cfg(windows)]
 type RecallShortcut = win_key::WinKeyShortcut;
 #[cfg(target_os = "macos")]
@@ -123,12 +123,12 @@ fn start_file_drag(app: &tauri::AppHandle, paths: Vec<PathBuf>) {
             drag::Image::Raw(include_bytes!("../icons/32x32.png").to_vec()),
             move |result, _| {
                 let detail = serde_json::json!({ "dropped": matches!(result, drag::DragResult::Dropped) });
-                let _ = callback_window.eval(format!("window.dispatchEvent(new CustomEvent('mrmak-native-drag-result',{{detail:{detail}}}))"));
+                let _ = callback_window.eval(format!("window.dispatchEvent(new CustomEvent('matias-native-drag-result',{{detail:{detail}}}))"));
             }, drag::Options::default(),
         );
         if let Err(error) = result {
             let detail = serde_json::json!({ "dropped": false, "error": error.to_string() });
-            let _ = window.eval(format!("window.dispatchEvent(new CustomEvent('mrmak-native-drag-result',{{detail:{detail}}}))"));
+            let _ = window.eval(format!("window.dispatchEvent(new CustomEvent('matias-native-drag-result',{{detail:{detail}}}))"));
         }
     });
 }
@@ -156,7 +156,7 @@ fn repo_path(app: &tauri::AppHandle) -> Result<PathBuf, Box<dyn std::error::Erro
                 return Ok(root.to_owned());
             }
         }
-        selected = rfd::FileDialog::new().set_title("Choose your Mr. Mak Workspace repository").pick_folder();
+        selected = rfd::FileDialog::new().set_title("Choose your Matias Game Dev Studio repository").pick_folder();
         if selected.is_none() { return Err(Cancelled.into()); }
         if !selected.as_ref().unwrap().join("workspace/workspace.json").is_file() {
             rfd::MessageDialog::new().set_title("Choose the Workspace folder").set_description("Select the repository folder containing workspace/workspace.json.").show();
@@ -207,8 +207,8 @@ fn make_windows(app: &tauri::AppHandle, workspace: &str, chats: &str) -> Result<
     let service_url: tauri::Url = workspace.parse()?;
     let service_token = service_url.query_pairs().find(|(key, _)| key == "token").map(|(_, value)| value.into_owned()).ok_or("Service credential unavailable")?;
     let auth_script = include_str!("desktop-auth.js")
-        .replace("__MRMAK_SERVICE_ORIGIN__", &serde_json::to_string(&service_url.origin().ascii_serialization())?)
-        .replace("__MRMAK_SERVICE_TOKEN__", &serde_json::to_string(&service_token)?);
+        .replace("__MATIAS_SERVICE_ORIGIN__", &serde_json::to_string(&service_url.origin().ascii_serialization())?)
+        .replace("__MATIAS_SERVICE_TOKEN__", &serde_json::to_string(&service_token)?);
     let (mut x, mut y, mut width, mut height) = (0.0, 0.0, 1440.0, 900.0);
     if let Some(monitor) = app.primary_monitor()? {
         let scale = monitor.scale_factor();
@@ -221,14 +221,14 @@ fn make_windows(app: &tauri::AppHandle, workspace: &str, chats: &str) -> Result<
         .initialization_script(&auth_script)
         .on_new_window(|url, _| external_links::open_popup(url))
         .disable_drag_drop_handler().visible(false)
-        .title(format!("{} — Workspace", app.config().product_name.as_deref().unwrap_or("Mr. Mak"))).inner_size((width - chat_width - 8.0).max(500.0), (height - 6.0).max(450.0))
+        .title(format!("{} — Workspace", app.config().product_name.as_deref().unwrap_or("Matias"))).inner_size((width - chat_width - 8.0).max(500.0), (height - 6.0).max(450.0))
         .position(x + chat_width + 6.0, y + 2.0).min_inner_size(500.0, 400.0)
         .build()?;
     let chats_window = window_defaults(WebviewWindowBuilder::new(app, "chats", WebviewUrl::External(chats.parse()?)))
         .initialization_script(&auth_script)
         .on_new_window(|url, _| external_links::open_popup(url))
         .visible(false)
-        .title(format!("{} — Chats", app.config().product_name.as_deref().unwrap_or("Mr. Mak"))).inner_size(chat_width, (height - 6.0).max(450.0))
+        .title(format!("{} — Chats", app.config().product_name.as_deref().unwrap_or("Matias"))).inner_size(chat_width, (height - 6.0).max(450.0))
         .position(x + 2.0, y + 2.0).min_inner_size(330.0, 420.0)
         .build()?;
     // Native drops expose every original file/folder path. Keep Workspace's
@@ -246,7 +246,7 @@ fn make_windows(app: &tauri::AppHandle, workspace: &str, chats: &str) -> Result<
                 tauri::DragDropEvent::Leave => serde_json::json!({ "phase": "leave" }),
                 _ => return,
             };
-            let _ = drop_window.eval(format!("window.dispatchEvent(new CustomEvent('mrmak-file-drop',{{detail:{detail}}}))"));
+            let _ = drop_window.eval(format!("window.dispatchEvent(new CustomEvent('matias-file-drop',{{detail:{detail}}}))"));
         }
     });
     let args: Vec<String> = std::env::args().collect();
@@ -330,7 +330,7 @@ fn recall_plugin() -> tauri::plugin::TauriPlugin<tauri::Wry> {
 
 // Windows and Linux have nothing to register here; keep the builder chain uniform.
 #[cfg(not(target_os = "macos"))]
-fn recall_plugin() -> tauri::plugin::TauriPlugin<tauri::Wry> { tauri::plugin::Builder::new("mrmak-recall").build() }
+fn recall_plugin() -> tauri::plugin::TauriPlugin<tauri::Wry> { tauri::plugin::Builder::new("matias-recall").build() }
 
 // macOS: the recall shortcut and a Dock-icon click bring back both windows,
 // since closing a window there only hides it.
@@ -356,7 +356,7 @@ fn install_chats_menu(app: &tauri::AppHandle) -> tauri::Result<()> {
         let Some(index) = event.id.as_ref().strip_prefix("chat-").and_then(|n| n.parse::<u8>().ok()) else { return };
         reveal(app, "chats");
         if let Some(window) = app.get_webview_window("chats") {
-            let _ = window.eval(format!("window.dispatchEvent(new CustomEvent('mrmak-select-chat',{{detail:{{index:{index}}}}}))"));
+            let _ = window.eval(format!("window.dispatchEvent(new CustomEvent('matias-select-chat',{{detail:{{index:{index}}}}}))"));
         }
     });
     Ok(())
@@ -369,7 +369,7 @@ fn guarded_setup(app: &mut tauri::App, setup: impl FnOnce(&mut tauri::App) -> Re
     if !cfg!(target_os = "macos") { return Err(error); }
     let cancelled = error.downcast_ref::<Cancelled>().is_some();
     if !cancelled {
-        rfd::MessageDialog::new().set_level(rfd::MessageLevel::Error).set_title("Mr. Mak could not start").set_description(error.to_string()).show();
+        rfd::MessageDialog::new().set_level(rfd::MessageLevel::Error).set_title("Matias could not start").set_description(error.to_string()).show();
     }
     app.handle().exit(if cancelled { 0 } else { 1 });
     Ok(())
@@ -404,7 +404,7 @@ fn main() {
             let log = fs::OpenOptions::new().create(true).append(true).open(&service_log)?;
             let mut command = Command::new(node);
             command.arg(script).arg("--repo").arg(&repo).arg("--ui").arg(ui).current_dir(&repo)
-                .env("MRMAK_PARENT_PID", std::process::id().to_string()).stdin(Stdio::piped()).stdout(Stdio::piped()).stderr(Stdio::from(log));
+                .env("MATIAS_PARENT_PID", std::process::id().to_string()).stdin(Stdio::piped()).stdout(Stdio::piped()).stderr(Stdio::from(log));
             #[cfg(target_os = "macos")]
             login_environment(&mut command);
             let mut child = hidden(&mut command).spawn()?;
@@ -433,7 +433,7 @@ fn main() {
                             let chats = event["chats"].as_str().unwrap_or("").to_owned();
                             let _ = app_handle.run_on_main_thread(move || {
                                 if let Err(error) = make_windows(&handle, &workspace, &chats) {
-                                    rfd::MessageDialog::new().set_title("Mr. Mak could not open").set_description(error.to_string()).show(); handle.exit(1);
+                                    rfd::MessageDialog::new().set_title("Matias could not open").set_description(error.to_string()).show(); handle.exit(1);
                                 }
                             });
                         },
@@ -458,7 +458,7 @@ fn main() {
                                             Ok(()) => serde_json::json!({ "path": file, "recycled": true }),
                                             Err(error) => serde_json::json!({ "path": file, "recycled": false, "error": error.to_string() }),
                                         };
-                                        let _ = window.eval(format!("window.dispatchEvent(new CustomEvent('mrmak-recycle-result',{{detail:{detail}}}))"));
+                                        let _ = window.eval(format!("window.dispatchEvent(new CustomEvent('matias-recycle-result',{{detail:{detail}}}))"));
                                     });
                                 }
                             }
@@ -476,7 +476,7 @@ fn main() {
                                 std::thread::spawn(move || {
                                     let paths = rfd::FileDialog::new().set_parent(&window).set_title("Attach file paths").pick_files().unwrap_or_default();
                                     let detail = serde_json::json!({ "requestId": request_id, "paths": paths });
-                                    let _ = window.eval(format!("window.dispatchEvent(new CustomEvent('mrmak-picked-files',{{detail:{detail}}}))"));
+                                    let _ = window.eval(format!("window.dispatchEvent(new CustomEvent('matias-picked-files',{{detail:{detail}}}))"));
                                 });
                             }
                         },
@@ -485,7 +485,7 @@ fn main() {
                     }
                 }
                 if app_handle.get_webview_window("workspace").is_none() {
-                    rfd::MessageDialog::new().set_title("Mr. Mak service did not start").set_description(format!("The local service stopped before opening the windows. See {} for details.", service_log.display())).show();
+                    rfd::MessageDialog::new().set_title("Matias service did not start").set_description(format!("The local service stopped before opening the windows. See {} for details.", service_log.display())).show();
                     app_handle.exit(1);
                 }
             });
@@ -494,7 +494,7 @@ fn main() {
             let workspace_item = MenuItem::with_id(app, "workspace", "Show Workspace", true, None::<&str>)?;
             let chats_item = MenuItem::with_id(app, "chats", "Show Chats", true, None::<&str>)?;
             let both_item = MenuItem::with_id(app, "both", "Show both windows", true, None::<&str>)?;
-            let quit_item = MenuItem::with_id(app, "quit", "Quit Mr. Mak and stop terminals", true, None::<&str>)?;
+            let quit_item = MenuItem::with_id(app, "quit", "Quit Matias and stop terminals", true, None::<&str>)?;
             let separator = PredefinedMenuItem::separator(app)?;
             let menu = Menu::with_items(app, &[&workspace_item, &chats_item, &both_item, &separator, &quit_item])?;
             #[cfg(any(windows, target_os = "macos"))]
@@ -504,7 +504,7 @@ fn main() {
                 let shortcut = RecallShortcut::start(app.handle(), enabled);
                 let available = shortcut.is_ok();
                 if let Ok(shortcut) = shortcut { app.manage(shortcut); }
-                let item = CheckMenuItem::with_id(app, "win-key", format!("{RECALL_LABEL} shows Mr. Mak"), available, enabled && available, None::<&str>)?;
+                let item = CheckMenuItem::with_id(app, "win-key", format!("{RECALL_LABEL} shows Matias"), available, enabled && available, None::<&str>)?;
                 menu.insert(&item, 3)?;
                 app.manage(item);
                 publish_shortcut(app.handle(), None, if available { None } else { Some(format!("The system could not register {RECALL_LABEL}.")) });
@@ -513,7 +513,7 @@ fn main() {
             let tray = TrayIconBuilder::new().icon(menu_bar_icon()?).icon_as_template(true);
             #[cfg(not(target_os = "macos"))]
             let tray = TrayIconBuilder::new().icon(app.default_window_icon().unwrap().clone());
-            tray.tooltip("Mr. Mak — your agents, close at hand")
+            tray.tooltip("Matias — your agents, close at hand")
                 .menu(&menu).show_menu_on_left_click(false)
                 .on_menu_event(|app, event| match event.id.as_ref() {
                     "workspace" => reveal(app, "workspace"), "chats" => reveal(app, "chats"),
@@ -548,7 +548,7 @@ fn main() {
                 if let Some(job) = app.try_state::<ServiceJob>() { job.0.lock().unwrap().take(); }
             }
         }),
-        Err(error) => { rfd::MessageDialog::new().set_title("Mr. Mak could not start").set_description(error.to_string()).show(); }
+        Err(error) => { rfd::MessageDialog::new().set_title("Matias could not start").set_description(error.to_string()).show(); }
     }
 }
 
@@ -575,8 +575,8 @@ mod tests {
 
     #[test]
     fn normalize_node_path_removes_windows_extended_prefixes() {
-        assert_eq!(normalize_node_path(PathBuf::from(r"\\?\C:\Mr Mak\service\main.mjs")), PathBuf::from(r"C:\Mr Mak\service\main.mjs"));
+        assert_eq!(normalize_node_path(PathBuf::from(r"\\?\C:\Matias\service\main.mjs")), PathBuf::from(r"C:\Matias\service\main.mjs"));
         assert_eq!(normalize_node_path(PathBuf::from(r"\\?\UNC\server\share\service\main.mjs")), PathBuf::from(r"\\server\share\service\main.mjs"));
-        assert_eq!(normalize_node_path(PathBuf::from(r"C:\Mr Mak\service\main.mjs")), PathBuf::from(r"C:\Mr Mak\service\main.mjs"));
+        assert_eq!(normalize_node_path(PathBuf::from(r"C:\Matias\service\main.mjs")), PathBuf::from(r"C:\Matias\service\main.mjs"));
     }
 }

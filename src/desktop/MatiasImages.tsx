@@ -3,7 +3,7 @@ import { ZoomImage } from '../components/ImagePreview'
 import { api } from './client'
 import type { Preview } from './types'
 
-export default function MakImages({ paths }: { paths: string[] }) {
+export default function MatiasImages({ paths }: { paths: string[] }) {
   const [images, setImages] = useState<Preview[] | null>(null)
   useEffect(() => {
     let cancelled = false

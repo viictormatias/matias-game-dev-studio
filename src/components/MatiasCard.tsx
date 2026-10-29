@@ -7,16 +7,16 @@ import { EntityStatusButton } from './EntityControls'
 /**
  * The design-system card: glass surface over the aura, gradient edge
  * (pink→purple; amber when pinned), glow + lift on hover. Building
- * block of the home grid; mirrored as `.mak-card` in
+ * block of the home grid; mirrored as `.matias-card` in
  * scripts/shared/report_style.py for generated reports.
  */
-export default function MakCard({ entity }: { entity: WorkspaceEntity }) {
+export default function MatiasCard({ entity }: { entity: WorkspaceEntity }) {
   const steps = entity.steps.length
   return (
     <div className="entity-card-wrap" data-card={entity.id}>
     <a
       href={entityHash(entity.id)}
-      className={`mak-card entity-card${entity.pinned ? ' pinned' : ''}`}
+      className={`matias-card entity-card${entity.pinned ? ' pinned' : ''}`}
       data-entity={entity.id}
     >
       <div className="card-top">

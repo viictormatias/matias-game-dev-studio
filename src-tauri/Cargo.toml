@@ -1,8 +1,8 @@
 [package]
-name = "mrmak-workspace"
+name = "matias-game-dev-studio"
 version = "0.6.1"
-description = "Mr. Mak workspace and independent agent terminals"
-authors = ["Mr. Mak Workspace contributors"]
+description = "Matias workspace and independent agent terminals"
+authors = ["Matias Game Dev Studio contributors"]
 edition = "2021"
 rust-version = "1.77.2"
 

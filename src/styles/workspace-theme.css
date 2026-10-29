@@ -32,13 +32,13 @@ html[data-workspace-theme] .report-document,html[data-workspace-theme] .report-d
 html[data-workspace-theme] .markdown-document,html[data-workspace-theme] .markdown-reader,
 html[data-workspace-theme] .markdown-editor,html[data-workspace-theme] .file-preview,
 html[data-workspace-theme] .desktop-boot{background:var(--surface-solid);color:var(--text)}
-html[data-workspace-theme] .mak-markdown{color:var(--text)}
-html[data-workspace-theme] .mak-markdown :is(h1,h2,h3,h4,th,strong){color:var(--text-bright);border-color:var(--hairline-strong)}
-html[data-workspace-theme] .mak-markdown a,html[data-workspace-theme] .report-error a{color:var(--pink)}
-html[data-workspace-theme] .mak-markdown :is(pre,code,th){background:var(--surface-2);border-color:var(--hairline-strong)}
-html[data-workspace-theme] .mak-markdown pre code{background:none}
-html[data-workspace-theme] .mak-markdown :is(td,hr){border-color:var(--hairline-strong)}
-html[data-workspace-theme] .mak-markdown blockquote{color:var(--text-dim);background:var(--pink-dim);border-color:var(--pink)}
+html[data-workspace-theme] .matias-markdown{color:var(--text)}
+html[data-workspace-theme] .matias-markdown :is(h1,h2,h3,h4,th,strong){color:var(--text-bright);border-color:var(--hairline-strong)}
+html[data-workspace-theme] .matias-markdown a,html[data-workspace-theme] .report-error a{color:var(--pink)}
+html[data-workspace-theme] .matias-markdown :is(pre,code,th){background:var(--surface-2);border-color:var(--hairline-strong)}
+html[data-workspace-theme] .matias-markdown pre code{background:none}
+html[data-workspace-theme] .matias-markdown :is(td,hr){border-color:var(--hairline-strong)}
+html[data-workspace-theme] .matias-markdown blockquote{color:var(--text-dim);background:var(--pink-dim);border-color:var(--pink)}
 html[data-workspace-theme] .report-loading,html[data-workspace-theme] .report-error,
 html[data-workspace-theme] .document-status{color:var(--text-dim)}
 html[data-workspace-theme] .report-error-actions button{background:var(--surface-2);color:var(--text);border-color:var(--hairline-strong)}
@@ -50,11 +50,11 @@ html[data-workspace-theme] .file-preview-body>pre{background:var(--surface-solid
 html[data-workspace-theme] .file-preview>header small{color:var(--text-muted)}
 html[data-workspace-theme] .report-image{background:var(--surface-2);color:var(--text)}
 html[data-workspace-theme] .report-image nav{background:var(--surface-solid);border-color:var(--hairline-strong)}
-html[data-workspace-theme] dialog.mak-lightbox{background:var(--surface-2);color:var(--text);border-color:var(--hairline-strong);box-shadow:var(--shadow-2)}
-html[data-workspace-theme] .mak-lightbox .mak-lightbox-toolbar{background:var(--surface-solid);border-color:var(--hairline-strong)}
-html[data-workspace-theme] .mak-lightbox .mak-lightbox-caption{color:var(--text)}
-html[data-workspace-theme] .mak-lightbox .mak-lightbox-toolbar :is(button,a){background:var(--surface-2);border-color:var(--hairline-strong);color:var(--text)}
-html[data-workspace-theme] .mak-lightbox .mak-lightbox-note{color:var(--text-dim)}
+html[data-workspace-theme] dialog.matias-lightbox{background:var(--surface-2);color:var(--text);border-color:var(--hairline-strong);box-shadow:var(--shadow-2)}
+html[data-workspace-theme] .matias-lightbox .matias-lightbox-toolbar{background:var(--surface-solid);border-color:var(--hairline-strong)}
+html[data-workspace-theme] .matias-lightbox .matias-lightbox-caption{color:var(--text)}
+html[data-workspace-theme] .matias-lightbox .matias-lightbox-toolbar :is(button,a){background:var(--surface-2);border-color:var(--hairline-strong);color:var(--text)}
+html[data-workspace-theme] .matias-lightbox .matias-lightbox-note{color:var(--text-dim)}
 
 /* Files, Settings, Skills and MCP share the same readable panel surfaces. */
 html[data-workspace-theme] .files-rail,html[data-workspace-theme] .files-panel{background:var(--surface-solid);border-color:var(--hairline-strong);color:var(--text)}
@@ -82,7 +82,7 @@ html[data-workspace-theme] .voice-panel{background:var(--surface-solid);border-c
 html[data-workspace-theme] :is(.voice-panel h2,.voice-welcome p,.caption,.activity-item strong){color:var(--text)}
 html[data-workspace-theme] :is(.voice-welcome>span,.caption.user,.caption>span,.activity-item small,.activity-item time,.voice-settings,.voice-tabs>button,.voice-working,.previous-voice){color:var(--text-dim)}
 html[data-workspace-theme] :is(.voice-settings select,.voice-compose button){background:var(--surface-2);color:var(--pink);border-color:var(--hairline-strong)}
-html[data-workspace-theme] :is(.voice-panel header,.voice-settings,.voice-compose,.voice-tabs,.mak-exchange,.activity-item){border-color:var(--hairline)}
+html[data-workspace-theme] :is(.voice-panel header,.voice-settings,.voice-compose,.voice-tabs,.matias-exchange,.activity-item){border-color:var(--hairline)}
 html[data-workspace-theme] .voice-tabs>button.selected{color:var(--pink);border-color:var(--pink)}
 html[data-workspace-theme] .voice-caption-toggle{color:var(--pink)!important;background:var(--surface-solid);border-color:var(--hairline-strong)}
 html[data-workspace-theme] .desktop-error{background:var(--surface-solid);color:var(--red);border-color:var(--red)}

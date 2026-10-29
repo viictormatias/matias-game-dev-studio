@@ -10,18 +10,18 @@ import {palettes, resolveTheme, themePalette} from './appearance.mjs';
 function preludeFor({theme = 'dark', parentOrigin = ''} = {}) {
   theme = resolveTheme(theme);
   const trustedOrigin = JSON.stringify(parentOrigin).replace(/</g, '\\u003c');
-  return Buffer.from(`<meta name="color-scheme" content="${themePalette(theme).scheme}"><style data-mrmak-chrome>
+  return Buffer.from(`<meta name="color-scheme" content="${themePalette(theme).scheme}"><style data-matias-chrome>
 html{color-scheme:dark;background-color:#101115;color:#d3d0d9}
 html,body,body *{scrollbar-color:#514c59 #111217!important;scrollbar-width:thin}
 ::-webkit-scrollbar{width:8px;height:8px}::-webkit-scrollbar-track,::-webkit-scrollbar-corner{background:#111217!important}
 ::-webkit-scrollbar-thumb{background:#514c59!important;border:2px solid #111217;border-radius:6px}
 ${reportThemeCSS}
-</style><script data-mrmak-links>
+</style><script data-matias-links>
 (() => {
-  const setTheme = theme => { if (${JSON.stringify(palettes.map(palette => palette.id))}.includes(theme)) document.documentElement.dataset.mrmakTheme = theme; };
+  const setTheme = theme => { if (${JSON.stringify(palettes.map(palette => palette.id))}.includes(theme)) document.documentElement.dataset.mrmatiasTheme = theme; };
   setTheme('${theme}');
   window.addEventListener('message', event => {
-    if (event.source === parent && event.origin === ${trustedOrigin} && event.data?.type === 'mrmak:theme') setTheme(event.data.theme);
+    if (event.source === parent && event.origin === ${trustedOrigin} && event.data?.type === 'matias:theme') setTheme(event.data.theme);
   });
   const route = event => {
     const link = event.target.closest?.('a[href]');
@@ -64,7 +64,7 @@ export function reportChromeStream(options) {
 }
 
 export async function serveReport(request, response, file, info, headers, reportOptions = {}) {
-  const options = {theme: new URL(request.url, 'http://localhost').searchParams.get('mrmak-theme'), parentOrigin: headers['Access-Control-Allow-Origin'] || '', ...reportOptions};
+  const options = {theme: new URL(request.url, 'http://localhost').searchParams.get('matias-theme'), parentOrigin: headers['Access-Control-Allow-Origin'] || '', ...reportOptions};
   const prelude = options?.mobileState ? mobileReportStatePrelude(options.parentOrigin) : preludeFor(options);
   response.writeHead(200, {'Content-Type':'text/html; charset=utf-8', 'Content-Length':info.size + prelude.length, 'Cache-Control':'no-cache', 'X-Content-Type-Options':'nosniff', ...headers});
   if (request.method === 'HEAD') { response.end(); return; }

@@ -12,7 +12,7 @@ const repo = await mkdtemp(path.join(root, '.cache/voice-ui-'));
 await mkdir(path.join(repo, 'workspace'));
 const uiDir = path.join(repo, 'ui');
 await cp(path.join(root, 'dist'), uiDir, { recursive: true });
-for (const name of ['mak-nose.svg', 'mak-nose-chats.svg']) await copyFile(path.join(root, 'public/assets', name), path.join(uiDir, 'assets', name));
+for (const name of ['matias-nose.svg', 'matias-nose-chats.svg']) await copyFile(path.join(root, 'public/assets', name), path.join(uiDir, 'assets', name));
 await writeFile(path.join(repo, 'workspace/workspace.json'), '{"entities":[]}');
 const service = await createService({ repo, uiDir, mcpOptions: { home: repo, env: {} } });
 const requests = [];
@@ -44,7 +44,7 @@ try {
     await page.getByRole('button', { name: 'Dismiss voice error' }).click();
     assert.equal(await page.getByRole('alert').count(), 0);
     assert.equal(await page.evaluate(() => window.fixtureMicRequests), 1);
-    const input = page.getByRole('textbox', { name: 'Message Mr. Mak' });
+    const input = page.getByRole('textbox', { name: 'Message Matias' });
     const before = requests.length;
     await input.fill('First line'); await input.press('Shift+Enter'); await input.pressSequentially('Second line');
     assert.equal(await input.inputValue(), 'First line\nSecond line'); assert.equal(requests.length, before);
@@ -83,12 +83,12 @@ try {
     assert.deepEqual(await readFile(saved), Buffer.from(imageBase64, 'base64'));
     await page.getByLabel('Sent images', { exact: true }).last().locator('img').waitFor();
 
-    await page.locator('input[type=file][aria-label="Choose images for Mr. Mak"]').setInputFiles({ name: 'Reference.png', mimeType: 'image/png', buffer: Buffer.from(imageBase64, 'base64') });
+    await page.locator('input[type=file][aria-label="Choose images for Matias"]').setInputFiles({ name: 'Reference.png', mimeType: 'image/png', buffer: Buffer.from(imageBase64, 'base64') });
     await attached.locator('img').waitFor();
     await attached.getByRole('button', { name: /^Remove / }).click();
     assert.equal(await attached.count(), 0);
   }
   assert.deepEqual(errors, []);
-  console.log('Talk to Mak: newline/send/IME, dismissable errors, image paste/upload/preview/removal, retry and hidden-panel draft retention passed in both windows.');
+  console.log('Talk to Matias: newline/send/IME, dismissable errors, image paste/upload/preview/removal, retry and hidden-panel draft retention passed in both windows.');
   console.log(`Screenshots: ${repo}`);
 } finally { await browser?.close(); await service.close(); }

@@ -1,16 +1,16 @@
 """
-Shared HTML report style for all Mr. Mak reports.
+Shared HTML report style for all Matias reports.
 
-"Luminous Mak" design system — tokens mirrored from src/styles/tokens.css:
+"Luminous Matias" design system — tokens mirrored from src/styles/tokens.css:
 near-black bg (#0a0a0c) with a soft pink/purple aura, glass cards with
 hairline borders, pink accent (#f0a0b0), Fraunces display serif for
 headings, Inter body, JetBrains Mono for code.
 
 Covers: KPI cards, tables, bar charts, image variants, video cards, tags,
-badges, callouts, verdicts — plus the design-system `.mak-card` (glass card
+badges, callouts, verdicts — plus the design-system `.matias-card` (glass card
 with a pink→purple gradient edge) for hero/featured blocks:
 
-    <div class="mak-card">
+    <div class="matias-card">
       <div class="eyebrow">Featured</div>
       <h2>Title</h2>
       <p>Body…</p>
@@ -80,14 +80,14 @@ strong { color: var(--text-bright); }
 .meta, .subtitle { color: var(--text-dim); font-size: 0.82rem; margin-bottom: 20px; }
 
 /* Design-system card — glass + pink→purple gradient edge */
-.mak-card {
+.matias-card {
   border: 1px solid transparent; border-radius: var(--radius-lg);
   background: var(--card-glass) padding-box, var(--edge) border-box;
   box-shadow: 0 6px 24px rgba(0,0,0,0.4), 0 0 28px rgba(240,160,176,0.07);
   padding: 18px 20px; margin: 16px 0;
 }
-.mak-card > h2, .mak-card > h3 { border: 0; padding: 0; margin: 0 0 10px; font-family: var(--font-display); color: var(--text-bright); }
-.mak-card .eyebrow { margin-bottom: 6px; }
+.matias-card > h2, .matias-card > h3 { border: 0; padding: 0; margin: 0 0 10px; font-family: var(--font-display); color: var(--text-bright); }
+.matias-card .eyebrow { margin-bottom: 6px; }
 
 /* KPI cards */
 .kpi-grid, .kpis { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; margin-bottom: 24px; }
@@ -269,7 +269,7 @@ def wrap_html(title, body_html, subtitle=""):
     shared_js = (shared / "report.js").read_text(encoding="utf-8")
     sub = f'<p class="meta">{subtitle}</p>' if subtitle else ""
     return f"""<!DOCTYPE html>
-<html lang="en" data-mak-report="document">
+<html lang="en" data-matias-report="document">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">

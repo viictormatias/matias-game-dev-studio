@@ -20,7 +20,7 @@ if (stat?.isSymbolicLink()) {
   let current = false
   try { current = realpathSync(link) === realpathSync(target) } catch { /* Dangling link. */ }
   if (!current) {
-    try { unlinkSync(link) } catch (err) { console.warn(`[mak] could not replace stale public/workspace link: ${err.message}`) }
+    try { unlinkSync(link) } catch (err) { console.warn(`[matias] could not replace stale public/workspace link: ${err.message}`) }
   }
 }
 
@@ -28,9 +28,9 @@ if (!lstatSync(link, { throwIfNoEntry: false })) {
   try {
     const windows = process.platform === 'win32'
     symlinkSync(windows ? target : relative(dirname(link), target), link, windows ? 'junction' : 'dir')
-    console.log('[mak] linked public/workspace -> workspace')
+    console.log('[matias] linked public/workspace -> workspace')
   } catch (err) {
-    console.warn(`[mak] could not create public/workspace link: ${err.message}`)
-    console.warn('[mak] reports will 404 until the link exists')
+    console.warn(`[matias] could not create public/workspace link: ${err.message}`)
+    console.warn('[matias] reports will 404 until the link exists')
   }
 }

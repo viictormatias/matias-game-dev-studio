@@ -1,8 +1,8 @@
 {
   "$schema": "https://schema.tauri.app/config/2",
-  "productName": "Mr. Mak Workspace",
+  "productName": "Matias Game Dev Studio",
   "version": "0.6.1",
-  "identifier": "com.mrmak.workspace",
+  "identifier": "com.matias.studio",
   "build": {
     "beforeBuildCommand": "npm run desktop:prepare",
     "frontendDist": "../desktop/splash"

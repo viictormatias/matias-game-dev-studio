@@ -9,7 +9,7 @@
    [the editable card format](../docs/editable-cards.md). Store content in a
    `.card.json` file and register `viewer: "card"`. Preserve stable entry IDs and
    validate before saving. Keep custom HTML when a task needs its own layout.
-4. Add the shared report CSS and script; use `data-mak-report="document"`.
+4. Add the shared report CSS and script; use `data-matias-report="document"`.
    Markdown requires no HTML wrapper and opens in the formatted document view.
 5. Make every image clickable and downloadable. Videos need native controls.
    Keep source links near claims and label historical model runs as historical.
@@ -22,7 +22,7 @@ New HTML reports can begin with:
 
 ```html
 <!doctype html>
-<html lang="en" data-mak-report="document">
+<html lang="en" data-matias-report="document">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">

@@ -1,15 +1,15 @@
 #!/usr/bin/env bash
-# macOS counterpart of "Start Mr. Mak.cmd": opens the app on this repository.
+# macOS counterpart of "Start Matias.cmd": opens the app on this repository.
 root="$(cd "$(dirname "$0")" && pwd)"
-built="$root/src-tauri/target/release/bundle/macos/Mr. Mak Workspace.app"
-for app in "/Applications/Mr. Mak Workspace.app" "$HOME/Applications/Mr. Mak Workspace.app" "$built"; do
+built="$root/src-tauri/target/release/bundle/macos/Matias Game Dev Studio.app"
+for app in "/Applications/Matias Game Dev Studio.app" "$HOME/Applications/Matias Game Dev Studio.app" "$built"; do
   if [ -d "$app" ]; then
     stale=false
     # ditto and Finder keep modification times, so a newer build means the installed copy was not replaced.
-    if [ "$app" != "$built" ] && [ "$built/Contents/MacOS/mrmak-workspace" -nt "$app/Contents/MacOS/mrmak-workspace" ]; then
+    if [ "$app" != "$built" ] && [ "$built/Contents/MacOS/matias-game-dev-studio" -nt "$app/Contents/MacOS/matias-game-dev-studio" ]; then
       stale=true
       echo "The app built in this repository is newer than $app."
-      echo "To use it, quit Mr. Mak, then drag the new app over the installed one in Finder (Replace), or run:"
+      echo "To use it, quit Matias, then drag the new app over the installed one in Finder (Replace), or run:"
       echo "  rm -rf \"$app\" && ditto \"$built\" \"$app\""
     fi
     open -a "$app" --args --repo "$root" || { read -r -p "Press Return to close." _; exit 1; }

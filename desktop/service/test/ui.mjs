@@ -63,7 +63,7 @@ try {
   await page.getByRole('button', { name: 'Toggle files', exact: true }).click();
   await page.getByRole('treeitem', { name: /^knowledge$/ }).click();
   await page.getByRole('treeitem', { name: /^notes.md/ }).click();
-  await page.getByRole('heading', { name: 'A useful document' }).waitFor(); assert.equal(await page.locator('.mak-markdown table').count(), 1);
+  await page.getByRole('heading', { name: 'A useful document' }).waitFor(); assert.equal(await page.locator('.matias-markdown table').count(), 1);
   await page.getByRole('button', { name: 'Edit', exact: true }).click();
   await page.getByRole('textbox', { name: 'Edit notes.md' }).fill('# Edited document\n\nUnicode: русский 🐽\n');
   await page.getByRole('textbox', { name: 'Edit notes.md' }).press('Control+s');
