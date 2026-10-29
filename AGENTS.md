@@ -30,6 +30,12 @@ working. Ask for missing personal preferences; do not invent a biography.
 - Before committing or publishing, review the selected files for personal data,
   credentials, unintended media and unrelated changes.
 
+## Studio hub
+
+This repository is a multi-engine game studio hub (Unity first, also Godot and
+Unreal). Read `docs/hub.md` for the project layout. The owner converses in
+Portuguese (Brazil); see `context/preferences.md` for which content stays in English.
+
 ## First setup
 
 Follow `docs/getting-started.md`. Check the machine and the user's chosen route

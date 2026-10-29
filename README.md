@@ -1,5 +1,17 @@
 # Mr. Mak Workspace
 
+> **Instalação rápida (Windows, interface em português)**
+>
+> 1. Clone este repositório: `git clone https://github.com/MateusDevZip/mr-mak-workspace.git`
+> 2. Baixe o instalador `...-windows-x64-setup.exe` em
+>    [Releases](https://github.com/MateusDevZip/mr-mak-workspace/releases/latest) e instale.
+>    Não precisa de Rust nem de build.
+> 3. Abra o **Mr. Mak Workspace** e escolha a pasta clonada como repositório.
+> 4. Conecte um agente (Claude Code, Codex ou OpenCode) já logado no seu PC. Veja
+>    [Getting started](docs/getting-started.md#connect-one-agent).
+> 5. Preencha `context/identity.md`, `context/goals.md` e `context/preferences.md` com os seus dados.
+>    Os cards de exemplo podem ser arquivados pelo próprio app.
+
 Your CLI agents, a visual Workspace, and access from your phone.
 
 Mr. Mak has **two connected desktop windows**:

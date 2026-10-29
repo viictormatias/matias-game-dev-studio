@@ -1,4 +1,5 @@
 # About the owner
 
-Optional. Add only the background you want agents working in this project to know.
-There is no personal profile bundled with the template.
+Starting an independent game development studio. Works in Portuguese (Brazil).
+Wants Unity first, then Godot and Unreal when needed.
+Add further background here only when the owner provides it.

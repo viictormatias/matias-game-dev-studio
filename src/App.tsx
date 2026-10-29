@@ -147,8 +147,8 @@ export default function App() {
       <button
         className="sidebar-reopen"
         onClick={() => setCollapsed(false)}
-        title="Show menu — press Mr. Mak's nose ( [ )"
-        aria-label="Show menu"
+        title="Mostrar menu — aperte o nariz do Mr. Mak ( [ )"
+        aria-label="Mostrar menu"
       >
         <MakLogo size={38} animated={route.id !== 'my-dream-game'} />
       </button>
@@ -167,7 +167,7 @@ export default function App() {
         <div className="content">
           <ReportBoundary key={reportUrl || 'home'} onHome={goHome}>
           {entity && reportUrl && step?.viewer === 'card' ? (
-            <Suspense fallback={<div className="report-loading">Opening card…</div>}><EditableCard key={`${entity.id}:${stepIndex}`} url={reportUrl} entityId={entity.id} step={stepIndex} /></Suspense>
+            <Suspense fallback={<div className="report-loading">Abrindo card…</div>}><EditableCard key={`${entity.id}:${stepIndex}`} url={reportUrl} entityId={entity.id} step={stepIndex} /></Suspense>
           ) : entity && reportUrl && step?.viewer === 'compare3d' ? (
             <Suspense fallback={<div className="boot"><MakLogo size={56} animated={false} /></div>}><Compare3D
               key={reportUrl}

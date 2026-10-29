@@ -1,8 +1,7 @@
 # Goals
 
-Add your current goals here. The starter repository does not assume a job,
-business, channel, schedule or personal background.
-
-For a first session, open My Dream Game, read the example design, and ask an agent
-to replace the brief with your own idea. Keep the example unchanged if you would
-prefer to start a new project beside it.
+- Run a game development studio from this repository as a hub: one workspace,
+  several games, any engine (Unity first, then Godot and Unreal).
+- Each game lives in `projects/<game-name>/` with its own brief, plan and engine
+  notes. The Workspace shows reports and references for every game.
+- The sample "My Dream Game" stays as a reference until replaced.

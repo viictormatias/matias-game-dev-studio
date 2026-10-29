@@ -54,7 +54,7 @@ export default function Topbar({ entity, stepIndex, onStep, onHome, reportUrl }:
               href={reportUrl}
               target="_blank"
               rel="noreferrer"
-              title="Open report in a new tab"
+              title="Abrir em nova aba"
             >
               ↗
             </a>

@@ -1,5 +1,5 @@
 import type { WorkspaceEntity } from '../types'
-import { categoryIcon } from '../lib/categories'
+import { categoryIcon, categoryLabel } from '../lib/categories'
 import MakCard from './MakCard'
 import MakLogo from './MakLogo'
 
@@ -14,10 +14,10 @@ interface HomeGridProps {
 
 function greeting(): string {
   const h = new Date().getHours()
-  if (h < 5) return 'Burning the midnight oil, sir?'
-  if (h < 12) return 'Good morning, sir.'
-  if (h < 18) return 'Good day, sir.'
-  return 'Good evening, sir.'
+  if (h < 5) return 'Trabalhando até tarde?'
+  if (h < 12) return 'Bom dia!'
+  if (h < 18) return 'Boa tarde!'
+  return 'Boa noite!'
 }
 
 export default function HomeGrid({
@@ -39,24 +39,24 @@ export default function HomeGrid({
         <div>
           <h1 className="home-title">{greeting()}</h1>
           <p className="home-sub">
-            <b>{activeCount}</b> active · <b>{entities.length}</b> entities ·{' '}
-            <b>{categoryCount}</b> categories
-            {offline && <span className="home-offline"> · workspace.json unreachable</span>}
+            <b>{activeCount}</b> ativos · <b>{entities.length}</b> projetos ·{' '}
+            <b>{categoryCount}</b> categorias
+            {offline && <span className="home-offline"> · workspace.json inacessível</span>}
           </p>
         </div>
       </header>
 
       {searching && (
         <p className="home-filter">
-          {shown === 0 ? 'No matches for' : `${shown} match${shown === 1 ? '' : 'es'} for`}{' '}
-          “{query.trim()}” — archive included
+          {shown === 0 ? 'Nenhum resultado para' : `${shown} resultado${shown === 1 ? '' : 's'} para`}{' '}
+          “{query.trim()}” — incluindo arquivados
         </p>
       )}
 
       {pinned.length > 0 && (
         <section className="home-section">
           <div className="section-head">
-            <span className="section-title">{'\u{1F4CC}'} pinned</span>
+            <span className="section-title">{'\u{1F4CC}'} fixados</span>
             <span className="section-count">{pinned.length}</span>
           </div>
           <div className="card-grid">
@@ -71,7 +71,7 @@ export default function HomeGrid({
         <section key={cat} className="home-section">
           <div className="section-head">
             <span className="section-title">
-              {categoryIcon(cat)} {cat.replace(/-/g, ' ')}
+              {categoryIcon(cat)} {categoryLabel(cat)}
             </span>
             <span className="section-count">{list.length}</span>
           </div>
@@ -86,10 +86,11 @@ export default function HomeGrid({
       {shown === 0 && !searching && (
         <div className="home-empty">
           {offline
-            ? 'Could not load workspace.json — is the public/workspace link in place? Run npm run dev again, sir.'
-            : 'Nothing here yet. New work will appear as cards, sir.'}
+            ? 'Não foi possível carregar workspace.json — verifique o link public/workspace. Rode npm run dev novamente.'
+            : 'Nada por aqui ainda.'}
         </div>
       )}
     </div>
   )
 }
+

@@ -7,6 +7,18 @@ export const CATEGORY_ICONS: Record<string, string> = {
   'dev': '\u{1F6E0}\u{FE0F}',
 }
 
+const CATEGORY_LABELS: Record<string, string> = {
+  'image-gen': 'imagens',
+  'analytics': 'dados',
+  'research': 'pesquisa e documentos',
+  'game': 'jogos',
+  'dev': 'desenvolvimento',
+}
+
+export function categoryLabel(category: string): string {
+  return CATEGORY_LABELS[category] ?? category.replace(/-/g, ' ')
+}
+
 export function categoryIcon(category: string): string {
   return CATEGORY_ICONS[category] ?? '\u{1F4C1}'
 }

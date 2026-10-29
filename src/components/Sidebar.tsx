@@ -1,7 +1,7 @@
 import type { RefObject } from 'react'
 import type { WorkspaceEntity } from '../types'
 import { entityHash } from '../lib/route'
-import { categoryIcon } from '../lib/categories'
+import { categoryIcon, categoryLabel } from '../lib/categories'
 import { contentUrl } from '../desktop/client'
 import MakLogo from './MakLogo'
 import MakText from './MakText'
@@ -69,8 +69,8 @@ export default function Sidebar({
         <button
           className="sidebar-collapse"
           onClick={onCollapse}
-          title="Hide menu ( [ )"
-          aria-label="Hide menu"
+          title="Esconder menu ( [ )"
+          aria-label="Esconder menu"
         >
           ‹
         </button>
@@ -90,11 +90,11 @@ export default function Sidebar({
               ev.currentTarget.blur()
             }
           }}
-          placeholder="Search…  ( / )"
-          aria-label="Search entities"
+          placeholder="Buscar…  ( / )"
+          aria-label="Buscar projetos"
         />
         {query && (
-          <button className="search-clear" onClick={() => onQuery('')} aria-label="Clear search">
+          <button className="search-clear" onClick={() => onQuery('')} aria-label="Limpar busca">
             ×
           </button>
         )}
@@ -104,7 +104,7 @@ export default function Sidebar({
         {pinned.length > 0 && (
           <div>
             <div className="sidebar-section">
-              <span className="sidebar-label">{'\u{1F4CC}'} pinned</span>
+              <span className="sidebar-label">{'\u{1F4CC}'} fixados</span>
             </div>
             {pinned.map(e => (
               <Item key={e.id} entity={e} active={e.id === activeId} />
@@ -115,7 +115,7 @@ export default function Sidebar({
         {[...grouped.entries()].map(([cat, list]) => (
           <div key={cat}>
             <div className="sidebar-section">
-              <span className="sidebar-label">{cat.replace(/-/g, ' ')}</span>
+              <span className="sidebar-label">{categoryLabel(cat)}</span>
               <span className="sidebar-count">{list.length}</span>
             </div>
             {list.map(e => (
@@ -124,13 +124,13 @@ export default function Sidebar({
           </div>
         ))}
 
-        {empty && <div className="sidebar-empty">Nothing matches, sir.</div>}
+        {empty && <div className="sidebar-empty">Nada encontrado.</div>}
 
         {archivedCount > 0 && !query && (
           <button className="sidebar-archive-toggle" onClick={onToggleArchived}>
             {showArchived
-              ? `▼ Hide archive (${archivedCount})`
-              : `▶ Show archive (${archivedCount})`}
+              ? `▼ Esconder arquivados (${archivedCount})`
+              : `▶ Mostrar arquivados (${archivedCount})`}
           </button>
         )}
       </nav>
@@ -138,12 +138,12 @@ export default function Sidebar({
       <footer className="sidebar-foot">
         <span className={`sync-dot${offline ? ' offline' : ''}`} />
         <span>
-          {total} entities ·{' '}
+          {total} projetos ·{' '}
           {offline
             ? 'offline'
             : lastSync
-              ? `synced ${lastSync.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}`
-              : 'syncing…'}
+              ? `sincronizado ${lastSync.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}`
+              : 'sincronizando…'}
         </span>
       </footer>
     </aside>
