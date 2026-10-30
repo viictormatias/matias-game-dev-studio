@@ -31,7 +31,8 @@ function ThemedFrame({ url, onLoad, ...props }: Props) {
           style.textContent = reportThemeCSS
           ;(doc.head || doc.documentElement).append(style)
         }
-        doc.documentElement.dataset.mrmatiasTheme = resolved
+        // Reports that declare their own theme ("custom") keep their colours.
+        if (doc.documentElement.dataset.matiasTheme !== 'custom') doc.documentElement.dataset.matiasTheme = resolved
       }
     } catch { /* Cross-origin reports use the message below. */ }
     // A desktop report runs in an opaque origin, which no target origin can name.

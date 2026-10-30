@@ -91,7 +91,10 @@ test('desktop conversation view reads the native transcript, grants its media an
   assert.equal((await request('/recent-projects/pin', { path: path.join(cwd, 'elsewhere'), pinned: true })).status, 400);
   const pinned = await (await request('/recent-projects/pin', { path: game, pinned: true })).json();
   assert.deepEqual(pinned.filter(item => item.pinned).map(item => item.path), [game]);
-  assert.deepEqual((await service.coordinator.execute('list_projects', { query: 'game' })).map(item => item.path), [game]);
+  // A query matches any substring of name or path. When the checkout folder itself
+  // contains "game", the Workspace root legitimately matches, so compare without it.
+  const gameHits = (await service.coordinator.execute('list_projects', { query: 'game' })).map(item => item.path);
+  assert.deepEqual(gameHits.filter(item => item !== cwd), [game]);
 
   assert.deepEqual(await (await request(`/sessions/${session.id}/stats`)).json(), { supported: true, userMessages: 1, truncated: false, model: null, handoff: null });
   const handoff = await request(`/sessions/${session.id}/handoff`, {});

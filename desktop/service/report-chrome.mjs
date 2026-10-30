@@ -18,7 +18,7 @@ html,body,body *{scrollbar-color:#514c59 #111217!important;scrollbar-width:thin}
 ${reportThemeCSS}
 </style><script data-matias-links>
 (() => {
-  const setTheme = theme => { if (${JSON.stringify(palettes.map(palette => palette.id))}.includes(theme)) document.documentElement.dataset.mrmatiasTheme = theme; };
+  const setTheme = theme => { if (${JSON.stringify(palettes.map(palette => palette.id))}.includes(theme) && document.documentElement.dataset.matiasTheme !== 'custom') document.documentElement.dataset.matiasTheme = theme; };
   setTheme('${theme}');
   window.addEventListener('message', event => {
     if (event.source === parent && event.origin === ${trustedOrigin} && event.data?.type === 'matias:theme') setTheme(event.data.theme);
